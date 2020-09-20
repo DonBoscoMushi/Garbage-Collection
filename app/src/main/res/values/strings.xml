@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Green</string>
+    <string name="app_description">Feel the Magic of Clean Surroundings</string>
+    <string name="register"><u>Register</u></string>
+    <string name="monthy_details"><u>Tutakubeba Taka kwa mwezi mmoja.\n
+                                        Tutakuja mara mbili wa week.
+                                        Jumanne na Alhamisi</u></string>
+    <string name="weekly_details">Tutakuja kila Jumanne na Alhamisi</string>
+    <string name="perService">Tutakuja mda utakaotuita tu</string>
 </resources>
