@@ -9,13 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Subscription"></activity>
+        <activity android:name=".Cleaning"></activity>
+        <activity android:name=".Subscription" />
         <activity android:name=".Collection" />
-        <activity android:name=".Welcome">
-
-        </activity>
+        <activity android:name=".Welcome"></activity>
         <activity android:name=".Login" />
-        <activity android:name=".Home" >
+        <activity android:name=".Home">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

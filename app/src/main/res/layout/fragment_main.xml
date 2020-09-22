@@ -3,14 +3,166 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Main">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:gravity="center"
+    tools:context=".Main"
+    android:padding="15dp"
+    android:background="#fcfcfc"
+    android:id="@+id/ll">
+    <RelativeLayout
+        android:id="@+id/collectionbox"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="56sp"
-        android:text="Main Page" />
+        android:layout_height="150dp"
+        android:layout_marginTop="25dp"
+        >
+        <ImageView
+            android:id="@+id/collectionicon"
+            android:background="@color/green"
+            android:layout_width="110dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="4dp"
+            android:padding="10dp"
+            android:src="@drawable/bottles"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginStart="60dp">
+
+            <TextView
+                android:id="@+id/collectiontext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignRight="@id/collectionicon"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="10dp"
+                android:text="Garbage Collection"
+                android:textStyle="bold"
+                android:textSize="23dp"/>
+
+            <View
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="80dp"
+                android:id="@+id/line1"
+                android:layout_width="250dp"
+                android:layout_height="1dp"
+                android:layout_alignRight="@+id/collectionicon"
+                android:background="@color/black" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Make your collection order"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="15dp"
+                />
+        </LinearLayout>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/cleaningbox"
+        android:contextClickable="true"
+        android:layout_below="@+id/collectionbox"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="25dp"
+        >
+        <ImageView
+            android:id="@+id/cleaningicon"
+            android:background="@color/green"
+            android:layout_width="110dp"
+            android:src="@drawable/clecon"
+            android:layout_height="match_parent"
+            android:layout_marginStart="4dp"
+            android:adjustViewBounds="true"
+            android:padding="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginStart="60dp">
+
+            <TextView
+                android:id="@+id/cleaningtext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignRight="@+id/cleaningicon"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="10dp"
+                android:text="Cleaning Service"
+                android:textStyle="bold"
+                android:textSize="23dp"/>
+
+            <View
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="80dp"
+                android:id="@+id/line2"
+                android:layout_width="250dp"
+                android:layout_height="1dp"
+                android:layout_alignRight="@+id/collectionicon"
+                android:background="@color/black" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Check suitable cleaning package for your building"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="15dp"
+                />
+        </LinearLayout>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_below="@id/cleaningbox"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="25dp"
+        >
+        <ImageView
+            android:id="@+id/timetableicon"
+            android:background="@color/green"
+            android:layout_width="110dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="4dp"
+            android:src="@drawable/time"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:padding="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginStart="60dp">
+
+            <TextView
+                android:id="@+id/timetabletext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignRight="@id/collectionicon"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="10dp"
+                android:text="Collection Routine"
+                android:textStyle="bold"
+                android:textSize="23dp"/>
+
+            <View
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="80dp"
+                android:id="@+id/line3"
+                android:layout_width="250dp"
+                android:layout_height="1dp"
+                android:layout_alignRight="@+id/collectionicon"
+                android:background="@color/black" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Check the collection timetable"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="15dp"
+                />
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </RelativeLayout>

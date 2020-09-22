@@ -9,6 +9,9 @@
     <string name="perService">Tutakuja mda utakaotuita tu</string>
     <string name="open">open</string>
     <string name="close">close</string>
+    <string name="indoor">Available Indoor Cleaning Services</string>
+    <string name="outdoor">Available Outdoor Cleaning Services</string>
+    <string name="request">REQUEST SERVICE</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
