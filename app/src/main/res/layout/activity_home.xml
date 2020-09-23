@@ -24,7 +24,7 @@
         android:layout_height="match_parent"
         app:menu="@menu/drawer_menu"
         app:headerLayout="@layout/drawer_header"
-        android:layout_gravity=""
+        android:layout_gravity="start"
         android:fitsSystemWindows="true"/>
 
 <!--    <Button-->

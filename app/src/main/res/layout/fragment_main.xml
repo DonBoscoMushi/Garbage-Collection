@@ -46,6 +46,7 @@
                 <TextView
                     android:id="@+id/collectiontext"
                     android:maxLines="1"
+                    android:fontFamily="@font/asap"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
@@ -105,9 +106,10 @@
                 android:layout_alignRight="@+id/cleaningicon"
                 android:layout_marginStart="100dp"
                 android:layout_marginTop="10dp"
+                android:fontFamily="@font/baumans"
                 android:text="Cleaning Service"
-                android:textStyle="bold"
-                android:textSize="23dp"/>
+                android:textSize="23dp"
+                android:textStyle="bold" />
 
             <View
                 android:layout_marginTop="15dp"
