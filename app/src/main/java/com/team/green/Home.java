@@ -50,7 +50,7 @@ public class Home extends AppCompatActivity implements  NavigationView.OnNavigat
         fragmentTransaction.add(R.id.container_fragment, new Main());
         fragmentTransaction.commit();
 
-        btnToSub = findViewById(R.id.toSub);
+//        btnToSub = findViewById(R.id.toSub);
 
 //        btnToSub.setOnClickListener(new View.OnClickListener() {
 //            @Override

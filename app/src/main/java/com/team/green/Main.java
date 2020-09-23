@@ -14,7 +14,7 @@ import java.util.zip.Inflater;
 
 public class Main extends Fragment {
 
-    View view;
+    RelativeLayout collectionBox, cb;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -22,7 +22,8 @@ public class Main extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
-        RelativeLayout cb = view.findViewById(R.id.cleaningbox);
+        cb = view.findViewById(R.id.cleaningbox);
+        collectionBox = view.findViewById(R.id.collectionbox);
 
         cb.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,11 +33,18 @@ public class Main extends Fragment {
             }
         });
 
+        collectionBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), Subscription.class));
+            }
+        });
+
         return view;
 
-        // Inflate the layout for this fragment
+
 
     }
 
-    }
+}
 

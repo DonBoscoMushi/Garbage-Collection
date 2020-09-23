@@ -9,7 +9,7 @@ import android.widget.Button;
 
 public class Login extends AppCompatActivity {
 
-    Button btnToSub;
+    Button registerBtn, loginBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,12 +17,21 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
 
-        btnToSub = findViewById(R.id.toSub);
+        registerBtn = findViewById(R.id.txtRegister);
+        loginBtn = findViewById(R.id.btnLogin);
 
-        btnToSub.setOnClickListener(new View.OnClickListener() {
+        registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Login.this, Subscription.class);
+                Intent intent = new Intent(Login.this, SignUp.class);
+                startActivity(intent);
+            }
+        });
+
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Login.this, Home.class);
                 startActivity(intent);
             }
         });
