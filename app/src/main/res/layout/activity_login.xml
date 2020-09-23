@@ -72,7 +72,7 @@
             android:fontFamily="@font/asap"
             android:layout_height="wrap_content"
             android:textAllCaps="false"
-            android:layout_marginTop="17dp"
+            android:layout_marginTop="50dp"
             android:background="@drawable/round_button"
             android:text="Log In"
             android:textColor="#000" />
