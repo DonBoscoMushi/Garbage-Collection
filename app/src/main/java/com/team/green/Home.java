@@ -9,14 +9,20 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.widget.Button;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Home extends AppCompatActivity implements  NavigationView.OnNavigationItemSelectedListener{
+
+    //Firebase instances
+    private FirebaseAuth mAuth;
 
     Button btnToSub;
     DrawerLayout drawerLayout;
@@ -50,6 +56,9 @@ public class Home extends AppCompatActivity implements  NavigationView.OnNavigat
         fragmentTransaction.add(R.id.container_fragment, new Main());
         fragmentTransaction.commit();
 
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+
 //        btnToSub = findViewById(R.id.toSub);
 
 //        btnToSub.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +69,23 @@ public class Home extends AppCompatActivity implements  NavigationView.OnNavigat
 //            }
 //        });
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        updateUI(currentUser);
+    }
+
+    //Send the user to login Screen when not signed in
+    private void updateUI(FirebaseUser currentUser) {
+        if(currentUser == null){
+            startActivity(new Intent(this, Login.class));
+            finish();
+        }
+    }
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
