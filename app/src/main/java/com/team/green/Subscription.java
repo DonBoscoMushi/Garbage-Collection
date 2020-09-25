@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 
 public class Subscription extends AppCompatActivity {
 
-    LinearLayout cleaningServiceBox;
+    LinearLayout cleaningServiceBox, mSubscription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +17,7 @@ public class Subscription extends AppCompatActivity {
         setContentView(R.layout.activity_subscription);
 
         cleaningServiceBox = findViewById(R.id.payPerServiceBox);
+        mSubscription = findViewById(R.id.monthlySubscription);
 
         cleaningServiceBox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -24,6 +25,13 @@ public class Subscription extends AppCompatActivity {
                 Intent intent = new Intent(Subscription.this, SignUp.class);
                 startActivity(intent);
 
+            }
+        });
+
+        mSubscription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), Collection.class));
             }
         });
 

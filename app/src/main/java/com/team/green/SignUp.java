@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +19,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.team.green.models.User;
+
+import java.util.regex.Pattern;
 
 public class SignUp extends AppCompatActivity {
 
@@ -59,32 +62,71 @@ public class SignUp extends AppCompatActivity {
                 password = passwordTxt.getText().toString();
                 phone = phoneTxt.getText().toString();
 
-                if(isNull(email) || isNull(fullname) || isNull(password) || isNull(phone)){
-                    Toast.makeText(SignUp.this, "All Fields are Required", Toast.LENGTH_SHORT).show();
-                }else {
-
-                    mAuth.createUserWithEmailAndPassword(email, password)
-                            .addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        // Sign in success, update UI with the signed-in user's information
-                                        FirebaseUser user = mAuth.getCurrentUser();
-                                        assert user != null;
-                                        updateUI(user, email, fullname, password, phone);
-
-                                    } else {
-                                        // If sign in fails, display a message to the user.
-                                        Log.w("TAG", "createUserWithEmail:failure", task.getException());
-                                        Toast.makeText(SignUp.this, "Registration failed.",
-                                                Toast.LENGTH_SHORT).show();
-
-                                    }
-
-                                    // ...
-                                }
-                            });
+                if (email.isEmpty()){
+                    emailTxt.setError("Email Required");
+                    emailTxt.requestFocus();
+                    return;
                 }
+
+                if (fullname.isEmpty()){
+                    fullnameTxt.setError("Full Required");
+                    fullnameTxt.requestFocus();
+                    return;
+                }
+
+                if (password.isEmpty()){
+                    passwordTxt.setError("Password Required");
+                    passwordTxt.requestFocus();
+                    return;
+                }
+
+                if (password.length() < 6){
+                    passwordTxt.setError("6 or more characters are required");
+                    passwordTxt.requestFocus();
+                    return;
+                }
+
+                if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                    emailTxt.setError("Enter a valid email");
+                    emailTxt.requestFocus();
+                    return;
+                }
+
+                if(phone.isEmpty()){
+                    phoneTxt.setError("Phone number required");
+                    phoneTxt.requestFocus();
+                    return;
+
+                }
+
+                if(phone.length() < 10){
+                    phoneTxt.setError("Enter a valid phone number");
+                    phoneTxt.requestFocus();
+                    return;
+
+                }
+
+                mAuth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // Sign in success, update UI with the signed-in user's information
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    assert user != null;
+                                    updateUI(user, email, fullname, password, phone);
+
+                                } else {
+                                    // If sign in fails, display a message to the user.
+                                    Log.w("TAG", "createUserWithEmail:failure", task.getException());
+                                    Toast.makeText(SignUp.this, "Registration failed.",
+                                            Toast.LENGTH_SHORT).show();
+
+                                }
+
+                                // ...
+                            }
+                        });
 
 
             }
@@ -117,17 +159,6 @@ public class SignUp extends AppCompatActivity {
                 }
             }
         });
-
-    }
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if(mAuth.getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(), Home.class));
-            finish();
-        }
 
     }
 

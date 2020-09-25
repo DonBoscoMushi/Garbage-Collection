@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SignUp"></activity>
+        <activity android:name=".admin.Home"></activity>
+        <activity android:name=".SignUp" />
         <activity android:name=".Cleaning" />
         <activity android:name=".Subscription" />
         <activity android:name=".Collection" />
