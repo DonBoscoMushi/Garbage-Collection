@@ -11,65 +11,24 @@
         android:id="@+id/appName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/animatedDialog"
+        android:maxLines="1"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:fontFamily="@font/baumans"
+        android:fontFamily="@font/asap"
         android:gravity="center"
         android:text="@string/app_description"
         android:textColor="#000"
         android:textSize="25sp" />
 
-    <ImageView
-        android:id="@+id/trash_icon"
-        android:layout_width="match_parent"
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animatedDialog"
+        android:layout_width="250dp"
         android:layout_height="250dp"
-        android:layout_margin="10dp"
-        android:layout_below="@id/appName"
-        android:src="@drawable/trash_img"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerInParent="true"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="trash_clean.json"
+        app:lottie_loop="true" />
 
-    <Button
-        android:id="@+id/loginBtn"
-        android:layout_width="170dp"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        android:background="@drawable/round_button"
-        android:layout_below="@id/trash_icon"
-        android:layout_marginTop="75dp"
-        android:layout_centerHorizontal="true"
-        android:textSize="17sp"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:layout_below="@id/loginBtn"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/txtToReg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Don't have an account?"
-            android:layout_marginEnd="5dp"
-            android:textSize="15sp"
-            android:layout_below="@id/loginBtn"
-            android:textColor="#000"
-            android:fontFamily="@font/baumans"/>
-
-        <TextView
-            android:id="@+id/txtReg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:text="@string/register"
-            android:textSize="15sp"
-            android:textColor="#FF0000"
-            android:fontFamily="@font/baumans"/>
-
-    </LinearLayout>
 
 </RelativeLayout>

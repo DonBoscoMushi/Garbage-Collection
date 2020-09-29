@@ -3,10 +3,9 @@ package com.team.green;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.media.MediaParser;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.os.Handler;
+import android.os.Looper;
 
 public class Welcome extends AppCompatActivity {
 
@@ -15,14 +14,18 @@ public class Welcome extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        Button btnLogin = findViewById(R.id.loginBtn);
+        Handler handler = new Handler(Looper.getMainLooper());
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+        handler.postDelayed(new Runnable() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Login.class);
-                startActivity(intent);
+            public void run() {
+
+                startActivity(new Intent(getApplicationContext(), Home.class));
+
+                finish();
+
             }
-        });
+        }, 6000);
+
     }
 }

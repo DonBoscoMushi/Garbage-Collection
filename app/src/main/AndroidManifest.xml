@@ -9,21 +9,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".admin.Home"></activity>
+        <activity android:name=".Settings"></activity>
+        <activity android:name=".About" />
+        <activity android:name=".Profile" />
+        <activity android:name=".admin.Home" />
         <activity android:name=".SignUp" />
         <activity android:name=".Cleaning" />
         <activity android:name=".Subscription" />
         <activity android:name=".Collection" />
-        <activity android:name=".Welcome" />
-        <activity android:name=".Login" />
-        <activity android:name=".Home">
+        <activity android:name=".Welcome">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Login" />
+        <activity android:name=".Home" />
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/maps_api_key" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

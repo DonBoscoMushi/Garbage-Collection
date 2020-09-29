@@ -4,8 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.team.green.utils.BottomNavigation;
 
 public class Subscription extends AppCompatActivity {
 
@@ -15,6 +20,8 @@ public class Subscription extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subscription);
+
+        setupBottomNav();
 
         cleaningServiceBox = findViewById(R.id.payPerServiceBox);
         mSubscription = findViewById(R.id.monthlySubscription);
@@ -35,5 +42,14 @@ public class Subscription extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void setupBottomNav(){
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
+        BottomNavigation.enableNavigation(Subscription.this, bottomNavigationView);
+
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(0);
+        menuItem.setChecked(true);
     }
 }

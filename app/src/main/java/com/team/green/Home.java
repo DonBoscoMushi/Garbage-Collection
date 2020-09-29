@@ -12,62 +12,62 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.team.green.utils.BottomNavigation;
 
-public class Home extends AppCompatActivity implements  NavigationView.OnNavigationItemSelectedListener{
+public class Home extends AppCompatActivity {//implements  NavigationView.OnNavigationItemSelectedListener{
 
     //Firebase instances
     private FirebaseAuth mAuth;
 
-    Button btnToSub;
-    DrawerLayout drawerLayout;
-    Toolbar toolbar;
-    NavigationView navigationView;
-    ActionBarDrawerToggle actionBarDrawerToggle;
-
-    FragmentManager fragmentManager;
-    FragmentTransaction fragmentTransaction;
+    RelativeLayout collectionBox, cb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        setSupportActionBar(toolbar);
-
-        drawerLayout = findViewById(R.id.drawer);
-        navigationView = findViewById(R.id.navigation_view);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
-        actionBarDrawerToggle.syncState();
-
-
-        //Load default fragment
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.container_fragment, new Main());
-        fragmentTransaction.commit();
+        setupBottomNav();
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
-//        btnToSub = findViewById(R.id.toSub);
+        cb = findViewById(R.id.cleaningbox);
+        collectionBox = findViewById(R.id.collectionbox);
 
-//        btnToSub.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(Home.this, Subscription.class);
-//                startActivity(intent);
-//            }
-//        });
+        cb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Cleaning.class);
+                startActivity(intent);
+            }
+        });
+
+        collectionBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), Subscription.class));
+            }
+        });
+
+    }
+
+    public void setupBottomNav(){
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
+        BottomNavigation.enableNavigation(Home.this, bottomNavigationView);
+
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(0);
+        menuItem.setChecked(true);
     }
 
     @Override
@@ -87,42 +87,42 @@ public class Home extends AppCompatActivity implements  NavigationView.OnNavigat
     }
 
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        drawerLayout.closeDrawer(GravityCompat.START);
-
-        switch(item.getItemId()){
-
-            case R.id.home:
-                fragmentManager = getSupportFragmentManager();
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.container_fragment, new Main());
-                fragmentTransaction.commit();
-                break;
-
-            case R.id.profile:
-                fragmentManager = getSupportFragmentManager();
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.container_fragment, new Profile());
-                fragmentTransaction.commit();
-                break;
-
-            case R.id.settings:
-
-                fragmentManager = getSupportFragmentManager();
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.container_fragment, new Settings());
-                fragmentTransaction.commit();
-                break;
-
-            case R.id.about:
-                fragmentManager = getSupportFragmentManager();
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.container_fragment, new About());
-                fragmentTransaction.commit();
-                break;
-        }
-
-        return false;
-    }
+//    @Override
+//    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//        drawerLayout.closeDrawer(GravityCompat.START);
+//
+//        switch(item.getItemId()){
+//
+//            case R.id.home:
+//                fragmentManager = getSupportFragmentManager();
+//                fragmentTransaction = fragmentManager.beginTransaction();
+//                fragmentTransaction.replace(R.id.container_fragment, new Main());
+//                fragmentTransaction.commit();
+//                break;
+//
+//            case R.id.profile:
+//                fragmentManager = getSupportFragmentManager();
+//                fragmentTransaction = fragmentManager.beginTransaction();
+//                fragmentTransaction.replace(R.id.container_fragment, new Profile());
+//                fragmentTransaction.commit();
+//                break;
+//
+//            case R.id.settings:
+//
+//                fragmentManager = getSupportFragmentManager();
+//                fragmentTransaction = fragmentManager.beginTransaction();
+//                fragmentTransaction.replace(R.id.container_fragment, new Settings());
+//                fragmentTransaction.commit();
+//                break;
+//
+//            case R.id.about:
+//                fragmentManager = getSupportFragmentManager();
+//                fragmentTransaction = fragmentManager.beginTransaction();
+//                fragmentTransaction.replace(R.id.container_fragment, new About());
+//                fragmentTransaction.commit();
+//                break;
+//        }
+//
+//        return false;
+//    }
 }

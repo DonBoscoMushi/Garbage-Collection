@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".CleaningActivity">
+    tools:context=".Cleaning">
     <LinearLayout
         android:layout_marginTop="50dp"
         android:layout_width="match_parent"
@@ -181,5 +181,11 @@
         android:layout_gravity="center"
         android:background="@color/green"
         android:layout_marginTop="50dp"/>
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        layout="@layout/layout_bottom_nav"/>
 
 </LinearLayout>
