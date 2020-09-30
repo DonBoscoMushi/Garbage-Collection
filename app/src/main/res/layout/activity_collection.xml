@@ -25,42 +25,91 @@
             android:textSize="24sp"/>
 
         <EditText
+            android:id="@+id/inputSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="Enter your Location"
             android:layout_marginTop="10dp"
+            android:imeOptions="actionSearch"
             android:inputType="text"/>
 
     </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/layout3"
+    
+    <View
+        android:id="@+id/view1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/layour1"
-        android:orientation="vertical"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="2dp"
         android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp">
+        android:layout_marginBottom="2dp"
+        android:layout_marginEnd="10dp"
+        android:layout_below="@id/layour1"
+        android:layout_height="1dp"
+        android:background="@color/lightgray"/>
 
-        <TextView
-            android:id="@+id/payment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Payment Method"
-            android:textColor="#000"
-            android:textSize="24sp"/>
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_height="400dp"
+        android:id="@+id/map"
+        android:layout_below="@id/view1"
+        android:name="com.google.android.gms.maps.SupportMapFragment" />
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:inputType="text"/>
+    <View
+        android:id="@+id/view2"
+        android:layout_below="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@color/lightgray"/>
 
-    </LinearLayout>
+    <Button
+        android:id="@+id/btnMap"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/map"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/round_button"
+        android:fontFamily="@font/asap"
+        android:text="Continue"
+        android:textAllCaps="false"
+        android:textColor="#000" />
+
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/layout3"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/view2"-->
+<!--        android:orientation="vertical"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:layout_marginStart="10dp"-->
+<!--        android:layout_marginEnd="10dp">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/payment"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Payment Method"-->
+<!--            android:textColor="#000"-->
+<!--            android:textSize="24sp"/>-->
+
+<!--        <EditText-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:inputType="text"/>-->
+
+<!--    </LinearLayout>-->
 
     <include
         android:layout_width="match_parent"
+        android:layout_below="@id/map"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         layout="@layout/layout_bottom_nav"/>

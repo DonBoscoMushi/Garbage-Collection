@@ -14,7 +14,7 @@ import com.team.green.utils.BottomNavigation;
 
 public class Subscription extends AppCompatActivity {
 
-    LinearLayout cleaningServiceBox, mSubscription;
+    LinearLayout cleaningServiceBox, mSubscription, wSubscription, pSubscription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,19 +23,26 @@ public class Subscription extends AppCompatActivity {
 
         setupBottomNav();
 
-        cleaningServiceBox = findViewById(R.id.payPerServiceBox);
         mSubscription = findViewById(R.id.monthlySubscription);
+        wSubscription = findViewById(R.id.weeklySubscription);
+        pSubscription = findViewById(R.id.payPerServiceSubscription);
 
-        cleaningServiceBox.setOnClickListener(new View.OnClickListener() {
+
+        mSubscription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Subscription.this, SignUp.class);
-                startActivity(intent);
-
+                startActivity(new Intent(getApplicationContext(), Collection.class));
             }
         });
 
-        mSubscription.setOnClickListener(new View.OnClickListener() {
+        wSubscription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), Collection.class));
+            }
+        });
+
+        pSubscription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), Collection.class));
