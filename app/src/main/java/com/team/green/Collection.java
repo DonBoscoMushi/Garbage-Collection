@@ -19,8 +19,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AdapterView;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -38,10 +36,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.libraries.places.api.model.AutocompletePrediction;
-import com.google.android.libraries.places.api.model.Place;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.team.green.utils.BottomNavigation;
+import com.team.green.utils.CheckNetworkGps;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -49,6 +46,8 @@ import java.util.List;
 
 
 public class Collection extends AppCompatActivity implements OnMapReadyCallback {
+
+    CheckNetworkGps checkNetworkGps;
 
     private static final int ERROR_DIALOG_REQUEST = 9001;
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
@@ -69,6 +68,9 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
         setContentView(R.layout.activity_collection);
         inputSearch = findViewById(R.id.inputSearch);
         btnMap = findViewById(R.id.btnMap);
+
+        checkNetworkGps = new CheckNetworkGps();
+        checkNetworkGps.checkNetworkGps(Collection.this);
 
         setupBottomNav();
 
@@ -110,6 +112,7 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
                 Toast.makeText(Collection.this, "Upo hapa " + obtainedLocation.toString(), Toast.LENGTH_LONG).show();
             }
         });
+
     }
 
     private void geoLocate(){
@@ -203,14 +206,11 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        Log.d(TAG, "onMapReady: mapready function ipo hapa");
-        
-        Toast.makeText(this, "Map is Ready", Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "onMapReady: map ready function ipo hapa");
+
         mMap = googleMap;
 
         if (permissionGranted) {
-            getDeviceLocation();
-            Log.d(TAG, "onMapReady: permission granted level 1");
 
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
@@ -222,10 +222,23 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
                 // for ActivityCompat#requestPermissions for more details.
                 return;
             }
+
+            getDeviceLocation();
+            Log.d(TAG, "onMapReady: permission granted level 1");
+
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
             Log.d(TAG, "onMapReady: permission granted level 1 enabled location icon");
         }
+
+        mMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
+            @Override
+            public boolean onMyLocationButtonClick() {
+                checkNetworkGps.checkNetworkGps(Collection.this);
+
+                return false;
+            }
+        });
     }
 
     private void getDeviceLocation() {
@@ -251,12 +264,17 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
                     @Override
                     public void onComplete(@NonNull Task task) {
                         if(task.isSuccessful()){
-                            Toast.makeText(Collection.this, "Location tumepata", Toast.LENGTH_SHORT).show();
                             Location currentLocation =  (Location) task.getResult();
+                            Toast.makeText(Collection.this, "Location tumepata", Toast.LENGTH_SHORT).show();
 
-                            //This brings an error when location is turned off.. weka try catch na uombe awashe location
-                            moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), 15f, "Current Location");
+                            try {
+                                hideSoftKeyboard();
+                                //This brings an error when location is turned off.. weka try catch na uombe awashe location
+                                moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), 15f, "Current Location");
 
+                            }catch (Exception e){
+                                Log.d(TAG, "onComplete: " + e.getMessage());
+                            }
                         }else {
                             Toast.makeText(Collection.this, "Amna kitu apa", Toast.LENGTH_SHORT).show();
                         }
@@ -291,6 +309,7 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
     protected void onResume() {
         super.onResume();
 
+        checkNetworkGps.checkNetworkGps(Collection.this);
         Log.d("MyMap", "onResume");
         setUpMapIfNeeded();
     }
