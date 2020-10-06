@@ -276,6 +276,7 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
                                 Log.d(TAG, "onComplete: " + e.getMessage());
                             }
                         }else {
+                            //iyo cm tupa tu
                             Toast.makeText(Collection.this, "Amna kitu apa", Toast.LENGTH_SHORT).show();
                         }
 
