@@ -23,13 +23,15 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.team.green.utils.BottomNavigation;
+import com.team.green.utils.FirebaseMethods;
 
 public class Home extends AppCompatActivity {//implements  NavigationView.OnNavigationItemSelectedListener{
 
     //Firebase instances
     private FirebaseAuth mAuth;
+    private FirebaseMethods firebaseMethods;
 
-    RelativeLayout collectionBox, cb;
+    RelativeLayout collectionBox, cb, collectionR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +42,11 @@ public class Home extends AppCompatActivity {//implements  NavigationView.OnNavi
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+        firebaseMethods = new FirebaseMethods();
 
         cb = findViewById(R.id.cleaningbox);
         collectionBox = findViewById(R.id.collectionbox);
+        collectionR = findViewById(R.id.collectionRoutineBox);
 
         cb.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +60,13 @@ public class Home extends AppCompatActivity {//implements  NavigationView.OnNavi
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), Subscription.class));
+            }
+        });
+
+        collectionR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), Notification.class));
             }
         });
 
@@ -82,8 +93,11 @@ public class Home extends AppCompatActivity {//implements  NavigationView.OnNavi
     private void updateUI(FirebaseUser currentUser) {
         if(currentUser == null){
             startActivity(new Intent(this, Login.class));
-            finish();
+        }else {
+            firebaseMethods.checkRole(Home.this, currentUser.getUid());
         }
+
+        finish();
     }
 
 

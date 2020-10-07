@@ -114,7 +114,7 @@ public class SignUp extends AppCompatActivity {
                                     // Sign in success, update UI with the signed-in user's information
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     assert user != null;
-                                    updateUI(user, email, fullname, password, phone);
+                                    updateUI(user, email, fullname, password, phone, "customer");
 
                                 } else {
                                     // If sign in fails, display a message to the user.
@@ -134,13 +134,14 @@ public class SignUp extends AppCompatActivity {
     }
 
     private void updateUI(FirebaseUser user, String email, String fullname, String password,
-                          String phone) {
+                          String phone, String role) {
 
         User user1 = new User(
                 user.getUid(),
                 fullname,
                 phone,
-                email
+                email,
+                role
         );
 
         FirebaseDatabase.getInstance().getReference("Users")

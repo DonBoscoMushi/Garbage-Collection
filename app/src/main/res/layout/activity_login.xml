@@ -6,6 +6,7 @@
     tools:context=".SignUp">
 
     <ScrollView
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -134,7 +135,6 @@
                         android:textColor="@color/green"
                         android:textSize="15sp"
                         android:textStyle="bold" />
-
 
                 </LinearLayout>
 

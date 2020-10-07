@@ -16,11 +16,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.team.green.admin.Admin;
+import com.team.green.utils.FirebaseMethods;
 
 public class Login extends AppCompatActivity {
 
     //Firebase instances
     private FirebaseAuth mAuth;
+
+    FirebaseMethods firebaseMethods;
 
     Button registerBtn, loginBtn;
 
@@ -29,6 +33,7 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        firebaseMethods = new FirebaseMethods();
 
         registerBtn = findViewById(R.id.txtRegister);
         loginBtn = findViewById(R.id.btnLogin);
@@ -40,6 +45,7 @@ public class Login extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
 
         initialise();
 
@@ -95,8 +101,9 @@ public class Login extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user) {
         if(user != null){
-            startActivity(new Intent(Login.this, Home.class));
+            firebaseMethods.checkRole(Login.this, user.getUid());
             finish();
         }
     }
+
 }
