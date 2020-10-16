@@ -19,24 +19,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MyAdapter"></activity>
+        <activity android:name=".admin.RegisterAdmin"></activity>
         <activity android:name=".Request" />
         <activity android:name=".admin.Admin" />
-        <activity android:name=".Notification" />
-
-        <service
-            android:name=".NotificationService"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-
+        <activity android:name=".admin.Notification" />
         <activity android:name=".Settings" />
         <activity android:name=".About" />
         <activity android:name=".Profile" />
-        <activity android:name=".admin.Home" />
         <activity android:name=".SignUp" />
         <activity android:name=".Cleaning" />
         <activity android:name=".Subscription" />

@@ -107,81 +107,81 @@
 
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:id="@+id/cleaningbox"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_below="@+id/collectionbox"
-                    android:layout_marginTop="25dp"
-                    android:background="@drawable/border">
+<!--                <RelativeLayout-->
+<!--                    android:id="@+id/cleaningbox"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="150dp"-->
+<!--                    android:layout_below="@+id/collectionbox"-->
+<!--                    android:layout_marginTop="25dp"-->
+<!--                    android:background="@drawable/border">-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:baselineAligned="false"
-                        android:orientation="horizontal"
-                        android:weightSum="4">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:baselineAligned="false"-->
+<!--                        android:orientation="horizontal"-->
+<!--                        android:weightSum="4">-->
 
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1.2">
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:layout_weight="1.2">-->
 
-                            <ImageView
-                                android:id="@+id/cleaningicon"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_marginStart="1dp"
-                                android:src="@drawable/cleaning" />
+<!--                            <ImageView-->
+<!--                                android:id="@+id/cleaningicon"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:layout_marginStart="1dp"-->
+<!--                                android:src="@drawable/cleaning" />-->
 
-                        </LinearLayout>
+<!--                        </LinearLayout>-->
 
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_margin="10dp"
-                            android:layout_weight="2.8"
-                            android:gravity="center"
-                            android:orientation="vertical">
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:layout_margin="10dp"-->
+<!--                            android:layout_weight="2.8"-->
+<!--                            android:gravity="center"-->
+<!--                            android:orientation="vertical">-->
 
-                            <TextView
-                                android:id="@+id/cleaningtext"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:fontFamily="@font/asap"
-                                android:maxLines="1"
-                                android:text="Cleaning Service"
-                                android:textColor="@color/black"
-                                android:textSize="23dp"
-                                android:textStyle="bold" />
+<!--                            <TextView-->
+<!--                                android:id="@+id/cleaningtext"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginTop="10dp"-->
+<!--                                android:fontFamily="@font/asap"-->
+<!--                                android:maxLines="1"-->
+<!--                                android:text="Cleaning Service"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:textSize="23dp"-->
+<!--                                android:textStyle="bold" />-->
 
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_margin="15dp"
-                                android:background="@color/lightgray" />
+<!--                            <View-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="1dp"-->
+<!--                                android:layout_margin="15dp"-->
+<!--                                android:background="@color/lightgray" />-->
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:fontFamily="@font/asap"
-                                android:gravity="center"
-                                android:text="Check suitable cleaning package for your building"
-                                android:textSize="17sp" />
+<!--                            <TextView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:fontFamily="@font/asap"-->
+<!--                                android:gravity="center"-->
+<!--                                android:text="Check suitable cleaning package for your building"-->
+<!--                                android:textSize="17sp" />-->
 
-                        </LinearLayout>
+<!--                        </LinearLayout>-->
 
 
-                    </LinearLayout>
+<!--                    </LinearLayout>-->
 
-                </RelativeLayout>
+<!--                </RelativeLayout>-->
 
                 <RelativeLayout
                     android:id="@+id/collectionRoutineBox"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
-                    android:layout_below="@+id/cleaningbox"
+                    android:layout_below="@+id/collectionbox"
                     android:layout_marginTop="25dp"
                     android:background="@drawable/border">
 

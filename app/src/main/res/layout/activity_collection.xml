@@ -76,7 +76,7 @@
         android:layout_marginTop="50dp"
         android:background="@drawable/round_button"
         android:fontFamily="@font/asap"
-        android:text="Continue"
+        android:text="Send Request"
         android:textAllCaps="false"
         android:textColor="#000" />
 

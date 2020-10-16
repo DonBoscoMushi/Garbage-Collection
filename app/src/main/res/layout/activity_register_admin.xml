@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".SignUp">
+    tools:context=".admin.RegisterAdmin">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Welcome"
+                android:text="Register Admin"
                 android:textSize="40sp"
                 android:maxLines="1"
                 android:textColor="#000"
@@ -114,35 +114,6 @@
                 android:background="@drawable/round_button"
                 android:text="Sign Up"
                 android:textColor="#000" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_gravity="left"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/asap"
-                    android:text="Already have an account?"
-                    android:textColor="#000"
-                    android:textSize="15sp" />
-
-                <Button
-                    android:id="@+id/txtRegToLogin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" Login."
-                    android:textColor="@color/green"
-                    android:fontFamily="@font/asap"
-                    android:textAllCaps="false"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"/>
-            </LinearLayout>
 
         </LinearLayout>
 

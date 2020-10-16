@@ -6,7 +6,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -35,24 +38,40 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.team.green.models.Request;
 import com.team.green.utils.BottomNavigation;
 import com.team.green.utils.CheckNetworkGps;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 public class Collection extends AppCompatActivity implements OnMapReadyCallback {
 
     CheckNetworkGps checkNetworkGps;
 
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    String UserId;
+
     private static final int ERROR_DIALOG_REQUEST = 9001;
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final String TAG = "Collection";
+
+    String subscription;
+    Date currentTime;
 
     private boolean permissionGranted = false;
     private final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
@@ -71,6 +90,10 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
 
         checkNetworkGps = new CheckNetworkGps();
         checkNetworkGps.checkNetworkGps(Collection.this);
+        currentTime = Calendar.getInstance().getTime();
+
+        Log.d(TAG, "onCreate: " + FirebaseAuth.getInstance().getCurrentUser().getUid());
+        UserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         setupBottomNav();
 
@@ -82,6 +105,78 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
         } else {
             ////Funga activity and desplay an errror
         }
+
+        Intent intent = getIntent();
+        subscription = intent.getStringExtra("Subscription");
+
+    }
+
+    private void sendRequest(LatLng location, String mSubscription){
+
+//        Map<String, Object> request = new HashMap<>();
+//        request.put("location", location);
+//        request.put("subscription", mSubscription);
+//        request.put("start_date", currentTime);
+//        request.put("UserId", UserId);
+//
+//        // Add a new document with a generated ID
+//        db.collection("requests")
+//                .add(request)
+//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                    @Override
+//                    public void onSuccess(DocumentReference documentReference) {
+//                        Log.d("TAG", "DocumentSnapshot added with ID: " + documentReference.getId());
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Log.w("TAG", "Error adding document", e);
+//                    }
+//                });
+
+        Request request = new Request(
+                mSubscription,
+                location.toString(),
+                currentTime,
+                UserId
+        );
+
+        DocumentReference mDocumentReference = db.collection("requests").document(UserId);
+
+        mDocumentReference.set(request)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(Collection.this, "Your request is sent. You will be notified", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(Collection.this, "Request failed", Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, "onFailure: " + e.getMessage());
+                    }
+                });
+
+
+
+        new AlertDialog.Builder(this)
+                .setTitle("Payment")
+                .setMessage("Complete payments through this number. 0743313344 With the name Garbage Collection Company and wait for confirmation")
+
+                // Specifying a listener allows you to take an action before dismissing the dialog.
+                // The dialog is automatically dismissed when a dialog button is clicked.
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Continue with delete operation
+                    }
+                })
+
+                // A null listener allows the button to dismiss the dialog and take no further action.
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
 
     }
 
@@ -109,7 +204,12 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
             @Override
             public void onClick(View view) {
                 hideSoftKeyboard();
-                Toast.makeText(Collection.this, "Upo hapa " + obtainedLocation.toString(), Toast.LENGTH_LONG).show();
+                getDeviceLocation();
+
+                sendRequest(obtainedLocation, subscription);
+                Log.d(TAG, "onClick: " + obtainedLocation.toString());
+//                Toast.makeText(Collection.this, "Upo hapa " + obtainedLocation.toString(), Toast.LENGTH_LONG).show();
+
             }
         });
 
@@ -265,8 +365,8 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
                     public void onComplete(@NonNull Task task) {
                         if(task.isSuccessful()){
                             Location currentLocation =  (Location) task.getResult();
-                            Toast.makeText(Collection.this, "Location tumepata", Toast.LENGTH_SHORT).show();
-
+//                            Toast.makeText(Collection.this, "Location tumepata", Toast.LENGTH_SHORT).show();
+                            Log.d(TAG, "onComplete: location is found");
                             try {
                                 hideSoftKeyboard();
                                 //This brings an error when location is turned off.. weka try catch na uombe awashe location
@@ -328,6 +428,7 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
     private void hideSoftKeyboard(){
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
+
 
     //Auto complete ya location
 

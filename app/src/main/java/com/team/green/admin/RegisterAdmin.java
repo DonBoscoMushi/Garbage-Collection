@@ -1,4 +1,4 @@
-package com.team.green;
+package com.team.green.admin;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,17 +23,15 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.team.green.Login;
+import com.team.green.R;
+import com.team.green.SignUp;
 import com.team.green.models.User;
 import com.team.green.utils.BasicJobs;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.regex.Pattern;
-
-public class SignUp extends AppCompatActivity {
+public class RegisterAdmin extends AppCompatActivity {
 
     Button regTologin,register;
     EditText emailTxt, fullnameTxt, passwordTxt1, passwordTxt2, phoneTxt;
@@ -44,14 +42,14 @@ public class SignUp extends AppCompatActivity {
     //Firebase
     private FirebaseAuth mAuth;
     private FirebaseFirestore mFirestore;
-    private String TAG = "SignUp";
+    private String TAG = "SignUp Admin";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        setContentView(R.layout.activity_register_admin);
 
-        //remove focus/hide keyboard as activity starts
+
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         mAuth = FirebaseAuth.getInstance();
@@ -69,13 +67,13 @@ public class SignUp extends AppCompatActivity {
         passwordTxt2 = findViewById(R.id.input_password_2);
         phoneTxt = findViewById(R.id.inputPhone);
 
-        regTologin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), Login.class));
-                finish();
-            }
-        });
+//        findViewById(R.id.regAdmin).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(getApplicationContext(), Login.class));
+//                finish();
+//            }
+//        });
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,7 +135,7 @@ public class SignUp extends AppCompatActivity {
 
                 }
 
-                BasicJobs.hideKeyboard(SignUp.this);
+                BasicJobs.hideKeyboard(RegisterAdmin.this);
 
                 greyedLinearLayout.setVisibility(View.VISIBLE);
                 animationView.setVisibility(View.VISIBLE);
@@ -147,14 +145,16 @@ public class SignUp extends AppCompatActivity {
 
 
                 mAuth.createUserWithEmailAndPassword(email, password_1)
-                        .addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
+                        .addOnCompleteListener(RegisterAdmin.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     assert user != null;
-                                    updateUI(user, email, fullname, password_1, phone, "customer");
+                                    updateUI(user, email, fullname, password_1, phone, "admin");
+                                    Snackbar.make(view, "You have added an Admin", Snackbar.LENGTH_LONG)
+                                            .setAction("Action", null).show();
 
                                 } else {
                                     // If sign in fails, display a message to the user.
@@ -195,14 +195,11 @@ public class SignUp extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(SignUp.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterAdmin.this, "Registration Successful", Toast.LENGTH_SHORT).show();
                         animationView.setVisibility(View.GONE);
                         greyedLinearLayout.setVisibility(View.GONE);
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                        Toast.makeText(SignUp.this, "Login to Continue", Toast.LENGTH_SHORT).show();
-                        mAuth.signOut();
-                        startActivity(new Intent(getApplicationContext(), Login.class));
-                        finish();
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -214,27 +211,5 @@ public class SignUp extends AppCompatActivity {
                         Log.d(TAG, "onFailure: " + e.getMessage());
                     }
                 });
-
-
-        /** I'v just deprecate the firebase realtime database **/
-//        FirebaseDatabase.getInstance().getReference("Users")
-//                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-//                .setValue(regUser).addOnCompleteListener(new OnCompleteListener<Void>() {
-//            @Override
-//            public void onComplete(@NonNull Task<Void> task) {
-//                if(task.isSuccessful()){
-//                    Toast.makeText(SignUp.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-//                    Toast.makeText(SignUp.this, "Login to Continue", Toast.LENGTH_SHORT).show();
-//                    mAuth.signOut();
-//                    startActivity(new Intent(getApplicationContext(), Login.class));
-//                    finish();
-//                }else{
-//                    Toast.makeText(getApplicationContext(), "Registration failed.",
-//                            Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
-
     }
-
 }

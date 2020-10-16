@@ -1,12 +1,26 @@
 package com.team.green.models;
 
-public class Request {
-    private String location;
-    private String phone;
+import java.util.Date;
 
-    public Request(String location, String phone) {
+public class Request {
+    private String Subscription;
+    private String location;
+    private Date time;
+    private String UserId;
+
+    public Request(String subscription, String location, Date time, String userId) {
+        Subscription = subscription;
         this.location = location;
-        this.phone = phone;
+        this.time = time;
+        UserId = userId;
+    }
+
+    public String getSubscription() {
+        return Subscription;
+    }
+
+    public void setSubscription(String subscription) {
+        Subscription = subscription;
     }
 
     public String getLocation() {
@@ -17,12 +31,20 @@ public class Request {
         this.location = location;
     }
 
-    public String getPhone() {
-        return phone;
+    public Date getTime() {
+        return time;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setTime(Date time) {
+        this.time = time;
+    }
+
+    public String getUserId() {
+        return UserId;
+    }
+
+    public void setUserId(String userId) {
+        UserId = userId;
     }
 }
 

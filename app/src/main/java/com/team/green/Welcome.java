@@ -20,7 +20,7 @@ public class Welcome extends AppCompatActivity {
             @Override
             public void run() {
 
-                startActivity(new Intent(getApplicationContext(), Home.class));
+                startActivity(new Intent(getApplicationContext(), Login.class));
 
                 finish();
 

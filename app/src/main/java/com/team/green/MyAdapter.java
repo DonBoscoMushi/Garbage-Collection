@@ -25,13 +25,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
 //        TextView  = (TextView) holder.textView.getViewById(R.id.location);
+        public TextView nameTextView;
         public TextView locationTextView;
         public TextView phoneTextView;
+
+
         public MyViewHolder(ConstraintLayout v) {
             super(v);
-
+            nameTextView = (TextView) v.getViewById(R.id.name);
             locationTextView = (TextView) v.getViewById(R.id.location);
-            phoneTextView = (TextView) v.getViewById(R.id.phone);
+//            phoneTextView = (TextView) v.getViewById(R.id.phone);
         }
     }
 
@@ -57,8 +60,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         // - replace the contents of the view with that element
         Request request = list.get(position);
 
-        holder.phoneTextView.setText(request.getPhone());
-        holder.locationTextView.setText(request.getLocation());
+//        holder.phoneTextView.setText(request.getSubscription());-git
+
+        holder.phoneTextView.setText("0743313344");
+        holder.locationTextView.setText("Coict, Kijitonyama");
+        holder.nameTextView.setText("Green Team");
 
     }
 

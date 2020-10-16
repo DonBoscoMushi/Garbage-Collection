@@ -135,7 +135,17 @@
                         android:textColor="@color/green"
                         android:textSize="15sp"
                         android:textStyle="bold" />
-
+                    <Button
+                        android:id="@+id/admin"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/asap"
+                        android:text="Admin?"
+                        android:textColor="@color/green"
+                        android:layout_below="@+id/help"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -143,5 +153,31 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/greyedBg"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#A0000000"
+        android:visibility="gone"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animatedDialog"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="smart_loading.json"
+            app:lottie_loop="true" />
+
+
+    </RelativeLayout>
+
+
 
 </RelativeLayout>

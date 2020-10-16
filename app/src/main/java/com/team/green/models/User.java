@@ -8,23 +8,13 @@ public class User {
     private String email;
     private String role;
 
-    public User() {
-    }
+    public User() { }
 
-    public User(String user_id, String fullname, String phone_no, String email, String role) {
-        this.user_id = user_id;
+    public User(String fullname, String phone_no, String email, String role) {
         this.fullname = fullname;
         this.phone_no = phone_no;
         this.email = email;
         this.role = role;
-    }
-
-    public String getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
     }
 
     public String getFullname() {

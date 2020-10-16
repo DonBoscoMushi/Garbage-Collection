@@ -16,7 +16,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.team.green.admin.Admin;
-import com.team.green.admin.Home;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -62,7 +61,6 @@ public class Request extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), Admin.class);
                 startActivity(intent);
                 finish();
-
 
             }
         });
