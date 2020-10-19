@@ -17,6 +17,8 @@ public class Subscription extends AppCompatActivity {
     LinearLayout cleaningServiceBox, mSubscription, wSubscription, pSubscription;
 
     final static String mSub = "Monthly Subscription";
+    final static String wSub = "Weekly Subscription";
+    final static String payPerService = "Pay Per Service";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +47,20 @@ public class Subscription extends AppCompatActivity {
         wSubscription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), Collection.class));
+                Intent intent = new Intent(getApplicationContext(), Collection.class);
+                intent.putExtra("Subscription", wSub);
+                startActivity(intent);
+//                startActivity(new Intent(getApplicationContext(), Collection.class));
             }
         });
 
         pSubscription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), Collection.class));
+                Intent intent = new Intent(getApplicationContext(), Collection.class);
+                intent.putExtra("Subscription", payPerService);
+                startActivity(intent);
+//                startActivity(new Intent(getApplicationContext(), Collection.class));
             }
         });
 

@@ -1,7 +1,9 @@
 package com.team.green;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,10 +17,6 @@ import com.team.green.models.Request;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     List<Request> list;
 
-    public MyAdapter(List<Request> list){
-        this.list = list;
-    }
-
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
@@ -30,24 +28,26 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         public TextView phoneTextView;
 
 
-        public MyViewHolder(ConstraintLayout v) {
+        public MyViewHolder(View v) {
             super(v);
-            nameTextView = (TextView) v.getViewById(R.id.name);
-            locationTextView = (TextView) v.getViewById(R.id.location);
-//            phoneTextView = (TextView) v.getViewById(R.id.phone);
+            nameTextView = (TextView) v.findViewById(R.id.name);
+            locationTextView = (TextView) v.findViewById(R.id.location);
+            phoneTextView = (TextView) v.findViewById(R.id.phone);
         }
     }
 
 
     // Provide a suitable constructor (depends on the kind of dataset)
-
+    public MyAdapter(List<Request> list){
+        this.list = list;
+    }
 
     // Create new views (invoked by the layout manager)
     @Override
     public MyAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
                                                      int viewType) {
         // create a new view
-        ConstraintLayout v = (ConstraintLayout) LayoutInflater.from(parent.getContext())
+        LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.requestlayout, parent, false);
         MyViewHolder vh = new MyViewHolder(v);
         return vh;
@@ -62,9 +62,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
 //        holder.phoneTextView.setText(request.getSubscription());-git
 
-        holder.phoneTextView.setText("0743313344");
-        holder.locationTextView.setText("Coict, Kijitonyama");
-        holder.nameTextView.setText("Green Team");
+        holder.phoneTextView.setText(request.getSubscription());
+        holder.locationTextView.setText(request.getLocation());
+        holder.nameTextView.setText(request.getTime().toString());
 
     }
 

@@ -185,6 +185,10 @@ public class Login extends AppCompatActivity {
                             finish();
                         }
 
+                        animationView.setVisibility(View.GONE);
+                        greyedLinearLayout.setVisibility(View.GONE);
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
                     } else {
                         Log.d(TAG, "Current data: null");
                     }
@@ -221,8 +225,14 @@ public class Login extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null)
+        if(currentUser != null){
+            greyedLinearLayout.setVisibility(View.VISIBLE);
+            animationView.setVisibility(View.VISIBLE);
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
             updateUI(currentUser);
+        }
     }
 
 

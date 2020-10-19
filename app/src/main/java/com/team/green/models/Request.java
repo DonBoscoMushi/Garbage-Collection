@@ -46,5 +46,15 @@ public class Request {
     public void setUserId(String userId) {
         UserId = userId;
     }
+
+    @Override
+    public String toString() {
+        return "Request{" +
+                "Subscription='" + Subscription + '\'' +
+                ", location='" + location + '\'' +
+                ", time=" + time +
+                ", UserId='" + UserId + '\'' +
+                '}';
+    }
 }
 

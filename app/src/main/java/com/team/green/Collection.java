@@ -95,6 +95,9 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
         Log.d(TAG, "onCreate: " + FirebaseAuth.getInstance().getCurrentUser().getUid());
         UserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+        Intent intent = getIntent();
+        subscription = intent.getStringExtra("Subscription");
+
         setupBottomNav();
 
         if (checkService()) {
@@ -105,9 +108,6 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
         } else {
             ////Funga activity and desplay an errror
         }
-
-        Intent intent = getIntent();
-        subscription = intent.getStringExtra("Subscription");
 
     }
 
