@@ -113,28 +113,6 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
 
     private void sendRequest(LatLng location, String mSubscription){
 
-//        Map<String, Object> request = new HashMap<>();
-//        request.put("location", location);
-//        request.put("subscription", mSubscription);
-//        request.put("start_date", currentTime);
-//        request.put("UserId", UserId);
-//
-//        // Add a new document with a generated ID
-//        db.collection("requests")
-//                .add(request)
-//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                    @Override
-//                    public void onSuccess(DocumentReference documentReference) {
-//                        Log.d("TAG", "DocumentSnapshot added with ID: " + documentReference.getId());
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Log.w("TAG", "Error adding document", e);
-//                    }
-//                });
-
         Request request = new Request(
                 mSubscription,
                 location.toString(),
@@ -429,17 +407,4 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
-
-    //Auto complete ya location
-
-//    private AdapterView.OnItemClickListener mAutoCompleteListener = new AdapterView.OnItemClickListener() {
-//        @Override
-//        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//            hideSoftKeyboard();
-//
-//            Place place;
-//
-//            final AutocompletePrediction item = .getItem(i);
-//        }
-//    };
 }

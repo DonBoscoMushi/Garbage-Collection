@@ -22,6 +22,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.annotations.Nullable;
 import com.google.firebase.firestore.DocumentReference;
@@ -29,9 +30,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.team.green.admin.Admin;
 import com.team.green.models.User;
 import com.team.green.utils.BasicJobs;
+import com.team.green.utils.DatabaseHelper;
 import com.team.green.utils.FirebaseMethods;
 
 
@@ -44,6 +47,8 @@ public class Login extends AppCompatActivity {
     FirebaseMethods firebaseMethods;
     private LottieAnimationView animationView;
     private LinearLayout greyedLinearLayout;
+
+    DatabaseHelper db;
 
     Button registerBtn, loginBtn;
     private String TAG = "Login";
@@ -60,6 +65,8 @@ public class Login extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         firebaseMethods = new FirebaseMethods();
         mFirebaseFirestore = FirebaseFirestore.getInstance();
+
+        db = new DatabaseHelper(Login.this);
 
         animationView = findViewById(R.id.animatedDialog);
         greyedLinearLayout = findViewById(R.id.greyedBg);
@@ -83,17 +90,16 @@ public class Login extends AppCompatActivity {
 //                ));
 //            }
 //        });
-
-
         initialise();
 
-    }
+     }
 
     private void initialise() {
 
         final EditText usernameTxt = findViewById(R.id.edtEmail);
         final EditText passwordTxt = findViewById(R.id.edtPassword);
 
+        //when the login button is clicked
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
@@ -153,6 +159,7 @@ public class Login extends AppCompatActivity {
         });
     }
 
+    //if the user is successfully  logged in, then this function is called..
     private void updateUI(FirebaseUser user) {
 //        if(user != null){
 //            firebaseMethods.checkRole(Login.this, user.getUid());
@@ -173,9 +180,16 @@ public class Login extends AppCompatActivity {
 
                     if (snapshot != null && snapshot.exists()) {
 
+                        //set firebase data to user modal class
                         User user = snapshot.toObject(User.class);
                         Log.d(TAG, "onEvent: " + user);
-                        if (user.getRole().equals("customer")) {
+
+                        //send the cloud data to local databse
+                        String Uid = FirebaseAuth.getInstance().getUid();
+                        db.insert(Uid, user.getFullname(), user.getEmail(), user.getPhone_no(), user.getRole());
+
+                        String role = user.getRole();
+                        if (role.equals("customer")) {
                             startActivity(new Intent(getApplicationContext(), Home.class));
                             Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
                             finish();
@@ -218,6 +232,7 @@ public class Login extends AppCompatActivity {
 //                }
 //            }
 //        });
+
     }
 
     @Override
@@ -225,16 +240,35 @@ public class Login extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            greyedLinearLayout.setVisibility(View.VISIBLE);
-            animationView.setVisibility(View.VISIBLE);
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
-            updateUI(currentUser);
+        String role = db.checkRole();
+        Log.d(TAG, "onStart: " + role);
+
+        if(currentUser != null){
+            if(role != null){
+//                String role = user.getRole();
+
+                if (role.equals("customer")) {
+                    startActivity(new Intent(getApplicationContext(), Home.class));
+                    //Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    startActivity(new Intent(getApplicationContext(), Admin.class));
+                    //Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+            }
+//            else {
+//                greyedLinearLayout.setVisibility(View.VISIBLE);
+//                animationView.setVisibility(View.VISIBLE);
+//                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+//                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//
+//                updateUI(currentUser);
+//            }
         }
     }
 
-
+    //This function takes firebase data an store them in a local database.
 
 }
