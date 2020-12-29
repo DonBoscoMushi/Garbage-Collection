@@ -7,4 +7,5 @@
     <color name="white">#ffffff</color>
     <color name="black">#000</color>
     <color name="green">#00bfa5</color>
+    <color name="topBarColor">#A7E7DE</color>
 </resources>

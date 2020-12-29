@@ -1,9 +1,10 @@
-package com.team.green.admin;
+package com.team.green.admin.notify;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.viewpager.widget.ViewPager;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.team.green.R;
@@ -30,6 +32,8 @@ public class Notification extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
+        setTopTabs();
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
             channel.setDescription(CHANNEL_DESCRIPTION);
@@ -37,7 +41,7 @@ public class Notification extends AppCompatActivity {
             manager.createNotificationChannel(channel);
         }
 
-        textView = findViewById(R.id.textView);
+//        textView = findViewById(R.id.textView);
 
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
@@ -46,15 +50,16 @@ public class Notification extends AppCompatActivity {
 
                         if (task.isSuccessful()){
                             String token = task.getResult().getToken();
-                            textView.setText(token);
+//                            textView.setText(token);
                         }else {
-                            textView.setText(task.getException().getMessage());
+//                            textView.setText(task.getException().getMessage());
                         }
                     }
                 });
 
     }
 
+    //Display new notifications
     private void displayNotification(){
 
         NotificationCompat.Builder mBuilder =
@@ -69,4 +74,20 @@ public class Notification extends AppCompatActivity {
 
 
     }
+
+    private void setTopTabs(){
+        SectionPagerAdapter sectionPagerAdapter = new SectionPagerAdapter(getSupportFragmentManager(), 0);
+        sectionPagerAdapter.addFragment(new Unattended_Notifications_Fragment());
+        sectionPagerAdapter.addFragment(new Attended_Notification_Fragment());
+
+        ViewPager viewPager = findViewById(R.id.container);
+        viewPager.setAdapter(sectionPagerAdapter);
+
+        TabLayout tabLayout = findViewById(R.id.topTabs);
+        tabLayout.setupWithViewPager(viewPager);
+
+        tabLayout.getTabAt(0).setText("New");
+        tabLayout.getTabAt(1).setText("Attended");
+    }
+
 }

@@ -1,50 +1,45 @@
-package com.team.green.admin;
+package com.team.green.admin.notify;
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.annotations.Nullable;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.team.green.Home;
 import com.team.green.MyAdapter;
 import com.team.green.R;
-import com.team.green.admin.notify.Notification;
 import com.team.green.models.Request;
-import com.team.green.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Admin extends AppCompatActivity {
+public class Unattended_Notifications_Fragment extends Fragment {
+
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     List<Request> list = new ArrayList<>();
 
 
-
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin);
-        recyclerView = findViewById(R.id.recycler_view);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_unatended__notifications_, container, false);
 
-        //Firestore
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        recyclerView = view.findViewById(R.id.recycler_view_unattended);
 
 //        list.addAll(Arrays.asList("elephant","hyena","chicken",
 //                "girrafe","penguin","blackbird","crown","dove","lion",
@@ -55,7 +50,7 @@ public class Admin extends AppCompatActivity {
         // in content do not change the layout size of the RecyclerView
 
         // use a linear layout manager
-        layoutManager = new LinearLayoutManager(this);
+        layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
 //        findViewById(R.id.filldata).setOnClickListener(new View.OnClickListener() {
@@ -108,11 +103,11 @@ public class Admin extends AppCompatActivity {
 //            }
 //        });
 
-        /**
+        //fetch details from requesrts
         FirebaseFirestore.getInstance()
                 .collection("requests")
                 .get()
-                .addOnSuccessListener(this, new OnSuccessListener<QuerySnapshot>() {
+                .addOnSuccessListener( new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(  QuerySnapshot queryDocumentSnapshots) {
 
@@ -131,21 +126,9 @@ public class Admin extends AppCompatActivity {
                     }
                 });
 
-        **/
+        //fetch name from user
+//        FirebaseFirestore.getInstance()
 
-        findViewById(R.id.regAdmin).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), RegisterAdmin.class));
-            }
-        });
-
-        findViewById(R.id.notify).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), Notification.class));
-            }
-        });
-
+        return view;
     }
 }
