@@ -36,6 +36,7 @@ import com.team.green.models.User;
 import com.team.green.utils.BasicJobs;
 import com.team.green.utils.DatabaseHelper;
 import com.team.green.utils.FirebaseMethods;
+import com.team.green.utils.InternetCheck;
 
 
 public class Login extends AppCompatActivity {
@@ -49,6 +50,7 @@ public class Login extends AppCompatActivity {
     private LinearLayout greyedLinearLayout;
 
     DatabaseHelper db;
+    InternetCheck internetCheck;
 
     Button registerBtn, loginBtn;
     private String TAG = "Login";
@@ -82,6 +84,12 @@ public class Login extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        internetCheck = new InternetCheck();
+
+        if(!internetCheck.isConnected(this)){
+            Toast.makeText(this, "Connect na internet we mbwa", Toast.LENGTH_SHORT).show();
+        }
 
 //        findViewById(R.id.admin).setOnClickListener(new View.OnClickListener() {
 //            @Override
