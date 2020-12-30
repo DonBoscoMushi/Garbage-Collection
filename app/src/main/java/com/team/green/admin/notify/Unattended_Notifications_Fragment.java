@@ -20,6 +20,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.team.green.MyAdapter;
 import com.team.green.R;
 import com.team.green.models.Request;
+import com.team.green.models.Subscription;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +30,9 @@ public class Unattended_Notifications_Fragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    List<Request> list = new ArrayList<>();
+//    List<Request> list = new ArrayList<>();
 
+    List<Subscription> list = new ArrayList<>();
 
     @Nullable
     @Override
@@ -115,12 +117,22 @@ public class Unattended_Notifications_Fragment extends Fragment {
 
                             Log.d("Requests", "onSuccess: " + document.getData());
 
-                            Request request = new Request(document.getString("subscription"), document.getString("location"),
-                                    document.getDate("time"), document.getString("userId"));
+                            Subscription subscription = new Subscription(
+                                    document.getString("userId"),
+                                    document.getDate("startDate"),
+                                    document.getDate("endDate"),
+                                    document.getString("disabled"),
+                                    document.getString("location"),
+                                    document.getString("subsctiption")
+                            );
 
-                            Log.d("TAG", "onSuccess: " + request.getLocation());
 
-                            list.add(request);
+//                            Request request = new Request(document.getString("subscription"), document.getString("location"),
+//                                    document.getDate("time"), document.getString("userId"));
+
+                            Log.d("TAG", "onSuccess: " + subscription.getUserId());
+
+                            list.add(subscription);
                         }
                         mAdapter.notifyDataSetChanged();
                     }

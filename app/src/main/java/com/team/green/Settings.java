@@ -29,7 +29,10 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 firebaseAuth.signOut();
-                startActivity(new Intent(getApplicationContext(), Login.class));
+                Intent intent = new Intent(getApplicationContext(), Login.class);
+                Settings.this.deleteDatabase("GreenDb");
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
     }

@@ -40,7 +40,7 @@ public class Admin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
-        recyclerView = findViewById(R.id.recycler_view);
+//        recyclerView = findViewById(R.id.recycler_view);
 
         //Firestore
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -49,14 +49,14 @@ public class Admin extends AppCompatActivity {
 //        list.addAll(Arrays.asList("elephant","hyena","chicken",
 //                "girrafe","penguin","blackbird","crown","dove","lion",
 //                "quora","bird","snake","milk","hawky","turkey"));
-        recyclerView.setHasFixedSize(true);
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-
-        // use a linear layout manager
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
+//        recyclerView.setHasFixedSize(true);
+//
+//        // use this setting to improve performance if you know that changes
+//        // in content do not change the layout size of the RecyclerView
+//
+//        // use a linear layout manager
+//        layoutManager = new LinearLayoutManager(this);
+//        recyclerView.setLayoutManager(layoutManager);
 
 //        findViewById(R.id.filldata).setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -66,37 +66,38 @@ public class Admin extends AppCompatActivity {
 //        });
 
         // specify an adapter (see also next example)
-        mAdapter = new MyAdapter(list);
-        recyclerView.setAdapter(mAdapter);
+//        mAdapter = new MyAdapter(list);
+//        recyclerView.setAdapter(mAdapter);
 
 //        mFirebaseFirestore  = FirebaseFirestore.getInstance();
 
-//        final DocumentReference docRef = FirebaseFirestore.getInstance()
-//                .collection("requests").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
-//
-//        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable DocumentSnapshot snapshot,
-//                                @Nullable FirebaseFirestoreException e) {
-//                if (e != null) {
-//                    Log.w("TAG", "Listen failed.", e);
-//                    return;
-//                }
-//
-//                if (snapshot != null && snapshot.exists()) {
-//
-//                    Request request = snapshot.toObject(Request.class);
-//                    list.add(request);
-//                    mAdapter.notifyDataSetChanged();
-//
-//                } else {
-//                    Log.d("TAG", "Current data: null");
-//                }
-//            }
-//        });
-//        final DocumentReference docRef = FirebaseFirestore.getInstance()
-//                .collection("requests").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        final DocumentReference docRef = FirebaseFirestore.getInstance()
+                .collection("requests").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
+        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot snapshot,
+                                @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    Log.w("TAG", "Listen failed.", e);
+                    return;
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+
+                    Request request = snapshot.toObject(Request.class);
+                    list.add(request);
+                    mAdapter.notifyDataSetChanged();
+
+                } else {
+                    Log.d("TAG", "Current data: null");
+                }
+            }
+        });
+
+//        final DocumentReference docRef = FirebaseFirestore.getInstance()
+//                .collection("requests").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+//
 //        DocumentReference docRef = db.collection("requests").document(mAuth.getCurrentUser().getUid());
 //        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
 //            @Override

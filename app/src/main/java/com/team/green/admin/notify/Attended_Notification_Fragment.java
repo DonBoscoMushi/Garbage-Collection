@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.team.green.MyAdapter;
 import com.team.green.R;
 import com.team.green.models.Request;
+import com.team.green.models.Subscription;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,9 @@ public class Attended_Notification_Fragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    List<Request> list = new ArrayList<>();
+//    List<Request> list = new ArrayList<>();
+    List<Subscription> list = new ArrayList<>();
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,

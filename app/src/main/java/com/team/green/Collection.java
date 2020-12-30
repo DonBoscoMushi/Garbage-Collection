@@ -43,9 +43,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.team.green.models.Request;
+import com.team.green.models.Subscription;
 import com.team.green.utils.BottomNavigation;
 import com.team.green.utils.CheckNetworkGps;
 
@@ -113,19 +115,31 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
 
     private void sendRequest(LatLng location, String mSubscription){
 
-        Request request = new Request(
-                mSubscription,
-                location.toString(),
+//        Request request = new Request(
+//                mSubscription,
+//                location.toString(),
+//                currentTime,
+//                UserId
+//        );
+
+        Subscription subscription = new Subscription(
+                UserId,
                 currentTime,
-                UserId
+                currentTime,
+                "0",
+                location.toString(),
+                mSubscription
         );
 
-        DocumentReference mDocumentReference = db.collection("requests").document(UserId);
+//        DocumentReference mDocumentReference = db.collection("requests");
+        CollectionReference toSubscription = db.collection("subscription");
 
-        mDocumentReference.set(request)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
+        toSubscription.add(subscription)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
-                    public void onSuccess(Void aVoid) {
+                    public void onSuccess(DocumentReference documentReference) {
+                        addToRequests(documentReference.getId());
+                        Log.d(TAG, "Check document Id: " + documentReference.getId());
                         Toast.makeText(Collection.this, "Your request is sent. You will be notified", Toast.LENGTH_SHORT).show();
                     }
                 })
@@ -139,6 +153,7 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
 
 
 
+        //An alert for payments
         new AlertDialog.Builder(this)
                 .setTitle("Payment")
                 .setMessage("Complete payments through this number. 0743313344 With the name Garbage Collection Company and wait for confirmation")
@@ -155,6 +170,33 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
                 .setNegativeButton(android.R.string.no, null)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
+
+    }
+
+    //requests
+    private void addToRequests(String transactionId){
+
+        Request request = new Request(
+                UserId,
+                "0",
+                transactionId
+        );
+
+
+        CollectionReference toRequests = db.collection("requests");
+        toRequests.add(request)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "toRequest: Requests sents" );
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "toRequest: failed");
+                    }
+                });
 
     }
 
@@ -222,6 +264,8 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
         menuItem.setChecked(true);
     }
 
+
+    //check if a map can be shown in this device
     public boolean checkService() {
 
         int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(Collection.this);

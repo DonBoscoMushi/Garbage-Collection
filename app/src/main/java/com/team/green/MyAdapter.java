@@ -14,9 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import com.team.green.models.Request;
+import com.team.green.models.Subscription;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
-    List<Request> list;
+//    List<Request> list;
+    List<Subscription> list;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -39,7 +41,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(List<Request> list){
+    public MyAdapter(List<Subscription> list){
         this.list = list;
     }
 
@@ -59,13 +61,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        Request request = list.get(position);
+//        Request request = list.get(position);
+        Subscription subscription = list.get(position);
 
 //        holder.phoneTextView.setText(request.getSubscription());-git
 
-        holder.phoneTextView.setText(request.getSubscription());
-        holder.locationTextView.setText(request.getLocation());
-        holder.nameTextView.setText(request.getTime().toString());
+        holder.phoneTextView.setText(subscription.getSubscription());
+        holder.locationTextView.setText(subscription.getStartDate().toString());
+        holder.nameTextView.setText(subscription.getUserId());
 
     }
 
