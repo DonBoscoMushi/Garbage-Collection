@@ -1,5 +1,6 @@
 package com.team.green.admin.notify;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,20 +9,29 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.team.green.MyAdapter;
 import com.team.green.R;
+import com.team.green.admin.NotificationDetails;
 import com.team.green.models.Request;
 import com.team.green.models.Subscription;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.ContentValues.TAG;
 
-public class Attended_Notification_Fragment extends Fragment {
+
+public class Attended_Notification_Fragment extends Fragment implements MyAdapter.OnNotificationListener {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -59,12 +69,55 @@ public class Attended_Notification_Fragment extends Fragment {
 //            }
 //        });
 
-        // specify an adapter (see also next example)
-        mAdapter = new MyAdapter(list);
+        // specify an adapter
+        mAdapter = new MyAdapter(list, this);
         recyclerView.setAdapter(mAdapter);
 
 
+        FirebaseFirestore.getInstance()
+                .collection("subscription")
+                .get()
+                .addOnSuccessListener( new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(  QuerySnapshot queryDocumentSnapshots) {
+
+                        for (DocumentSnapshot document :queryDocumentSnapshots.getDocuments()) {
+
+                            Log.d("Requests", "onSuccess: " + document.getData());
+
+                            Subscription subscription = new Subscription(
+                                    document.getString("userId"),
+                                    document.getDate("startDate"),
+                                    document.getDate("endDate"),
+                                    document.getString("disabled"),
+                                    document.getString("location"),
+                                    document.getString("subscription"),
+                                    document.getString("status"),
+                                    document.getString("name"),
+                                    document.getString("phone")
+                            );
+
+                            Log.d("TAG", "onSuccess: " + subscription.getUserId());
+
+                            if (subscription.getStatus().equals("1"))
+                                list.add(subscription);
+                        }
+                        mAdapter.notifyDataSetChanged();
+                    }
+                });
+
 
         return view;
+    }
+
+    @Override
+    public void onNotificationClick(int position) {
+
+        list.get(position);
+        Intent intent = new Intent(getActivity(), NotificationDetails.class);
+        Log.d(TAG, "onNotificationClick: " + position);
+        intent.putExtra("notify", (Parcelable) list.get(position));
+//        intent.putExtra("notify", list.get(position));
+        startActivity(intent);
     }
 }

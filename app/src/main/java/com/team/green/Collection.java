@@ -46,17 +46,21 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.team.green.models.Request;
 import com.team.green.models.Subscription;
 import com.team.green.utils.BottomNavigation;
 import com.team.green.utils.CheckNetworkGps;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class Collection extends AppCompatActivity implements OnMapReadyCallback {
@@ -65,7 +69,7 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    String UserId;
+    String UserId, name, phone;
 
     private static final int ERROR_DIALOG_REQUEST = 9001;
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
@@ -93,6 +97,7 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
         checkNetworkGps = new CheckNetworkGps();
         checkNetworkGps.checkNetworkGps(Collection.this);
         currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
 
         Log.d(TAG, "onCreate: " + FirebaseAuth.getInstance().getCurrentUser().getUid());
         UserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -122,13 +127,36 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
 //                UserId
 //        );
 
+        //fetch user id and take name and phone number
+        FirebaseFirestore.getInstance()
+                .collection("users")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for (QueryDocumentSnapshot document : task.getResult()){
+                            if (document.getId().equals(UserId)){
+                                Log.d(TAG, "onComplete: " + document.getId());
+                                name = document.getString("fullname");
+                                phone = document.getString("phone_no");
+
+                                Log.d(TAG, "onComplete: " + name + "  " + phone);
+                            }
+                        }
+                    }
+                });
+
+
         Subscription subscription = new Subscription(
                 UserId,
                 currentTime,
                 currentTime,
                 "0",
                 location.toString(),
-                mSubscription
+                mSubscription,
+                "0",
+                name,
+                phone
         );
 
 //        DocumentReference mDocumentReference = db.collection("requests");
@@ -181,7 +209,6 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
                 "0",
                 transactionId
         );
-
 
         CollectionReference toRequests = db.collection("requests");
         toRequests.add(request)

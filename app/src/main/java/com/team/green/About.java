@@ -42,17 +42,14 @@ public class About extends AppCompatActivity {
     //check network
     public void Network(){
         NetworkConnection networkConnection = new NetworkConnection(this);
-        networkConnection.observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean isConnected) {
-                if (isConnected) {
-                    disconnected.setVisibility(View.GONE);
-                    connected.setVisibility(View.VISIBLE);
+        networkConnection.observe(this, isConnected -> {
+            if (isConnected) {
+                disconnected.setVisibility(View.GONE);
+                connected.setVisibility(View.VISIBLE);
 
-                } else {
-                    connected.setVisibility(View.GONE);
-                    disconnected.setVisibility(View.VISIBLE);
-                }
+            } else {
+                connected.setVisibility(View.GONE);
+                disconnected.setVisibility(View.VISIBLE);
             }
         });
     }

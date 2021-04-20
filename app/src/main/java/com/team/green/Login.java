@@ -188,7 +188,21 @@ public class Login extends AppCompatActivity {
 
                     if (snapshot != null && snapshot.exists()) {
 
-                        //set firebase data to user modal class
+                        //set firebase data to user modapackage com.team.green;
+
+//import androidx.annotation.NonNull;
+//import androidx.appcompat.app.AppCompatActivity;                        //set firebase data to user modapackage com.team.green;
+//
+//
+//import android.app.Activity;
+//import android.content.Intent;
+//import android.os.Bundle;
+//import android.util.Log;
+//import android.view.View;
+//import android.view.WindowManager;
+//import android.widget.Button;
+//import android.widget.EditText;
+//import android.widget.LinearLayout;l class
                         User user = snapshot.toObject(User.class);
                         Log.d(TAG, "onEvent: " + user);
 

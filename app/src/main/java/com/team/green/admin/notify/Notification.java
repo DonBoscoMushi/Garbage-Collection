@@ -56,10 +56,10 @@ public class Notification extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
-        recyclerView.setHasFixedSize(true);
-
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
+//        recyclerView.setHasFixedSize(true);
+//
+//        layoutManager = new LinearLayoutManager(this);
+//        recyclerView.setLayoutManager(layoutManager);
 
         setTopTabs();
 
@@ -69,43 +69,6 @@ public class Notification extends AppCompatActivity {
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(channel);
         }
-
-
-        //specify an adapter
-        mAdapter = new MyAdapter(list);
-        recyclerView.setAdapter(mAdapter);
-
-//        final DocumentReference docRef = FirebaseFirestore.getInstance()
-//                .collection("subscription").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
-
-        FirebaseFirestore.getInstance()
-                .collection("requests")
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-
-                        for (DocumentSnapshot document :queryDocumentSnapshots.getDocuments()) {
-//
-                            Log.d("Requests", "onSuccess: " + document.getData());
-
-
-                            Subscription subscription = new Subscription(
-                                    document.getString("userID"),
-                                    document.getDate("startDate"),
-                                    document.getDate("endDate"),
-                                    document.getString("disabled"),
-                                    document.getString("location"),
-                                    document.getString("subscription")
-                            );
-
-                            Log.d("TAG", "onSuccess: " + subscription.getLocation());
-
-                            list.add(subscription);
-                        }
-                        mAdapter.notifyDataSetChanged();
-                    }
-                });
 
     }
 
@@ -117,6 +80,7 @@ public class Notification extends AppCompatActivity {
                         .setSmallIcon(R.drawable.ic_notification)
                         .setContentTitle("Its working ...")
                         .setContentText("1st Notification")
+                        .setWhen(System.currentTimeMillis())
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);

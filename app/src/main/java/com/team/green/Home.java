@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -19,17 +20,19 @@ public class Home extends AppCompatActivity {
 
     RelativeLayout collectionBox, collectionR;
     InternetCheck internetCheck;
+    ImageView profileImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        setupBottomNav();
+//        setupBottomNav();
 
 //        cb = findViewById(R.id.cleaningbox);
         collectionBox = findViewById(R.id.collectionbox);
         collectionR = findViewById(R.id.collectionRoutineBox);
+        profileImage = findViewById(R.id.profile_icon);
 
         //check internet
         internetCheck = new InternetCheck();
@@ -38,29 +41,28 @@ public class Home extends AppCompatActivity {
             Toast.makeText(this, "Connect na internet we mbwa", Toast.LENGTH_SHORT).show();
         }
 
-        collectionBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), Subscription.class));
-            }
-        });
+        collectionBox.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), Subscription.class)));
 
-        collectionR.setOnClickListener(new View.OnClickListener() {
+        collectionR.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), Cleaning.class)));
+
+        profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), Notification.class));
+
+                ProfileDialogFragment profileDialogFragment = new ProfileDialogFragment();
+                profileDialogFragment.show(getSupportFragmentManager(), "Green");
             }
         });
 
     }
 
-    public void setupBottomNav(){
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
-        BottomNavigation.enableNavigation(Home.this, bottomNavigationView);
-
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(0);
-        menuItem.setChecked(true);
-    }
+//    public void setupBottomNav(){
+//        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
+//        BottomNavigation.enableNavigation(Home.this, bottomNavigationView);
+//
+//        Menu menu = bottomNavigationView.getMenu();
+//        MenuItem menuItem = menu.getItem(0);
+//        menuItem.setChecked(true);
+//    }
 
 }

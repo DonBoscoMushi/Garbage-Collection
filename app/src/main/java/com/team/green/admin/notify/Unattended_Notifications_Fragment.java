@@ -1,6 +1,8 @@
-package com.team.green.admin.notify;
+ package com.team.green.admin.notify;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,19 +15,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.team.green.MyAdapter;
 import com.team.green.R;
-import com.team.green.models.Request;
+import com.team.green.admin.NotificationDetails;
 import com.team.green.models.Subscription;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Unattended_Notifications_Fragment extends Fragment {
+import static android.content.ContentValues.TAG;
+
+public class  Unattended_Notifications_Fragment extends Fragment implements MyAdapter.OnNotificationListener  {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -43,9 +46,6 @@ public class Unattended_Notifications_Fragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recycler_view_unattended);
 
-//        list.addAll(Arrays.asList("elephant","hyena","chicken",
-//                "girrafe","penguin","blackbird","crown","dove","lion",
-//                "quora","bird","snake","milk","hawky","turkey"));
         recyclerView.setHasFixedSize(true);
 
         // use this setting to improve performance if you know that changes
@@ -55,92 +55,50 @@ public class Unattended_Notifications_Fragment extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-//        findViewById(R.id.filldata).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                startActivity(new Intent(getApplicationContext(), com.team.green.Request.class));
-//            }
-//        });
-
         // specify an adapter (see also next example)
-        mAdapter = new MyAdapter(list);
+        mAdapter = new MyAdapter(list, this);
         recyclerView.setAdapter(mAdapter);
 
-//        mFirebaseFirestore  = FirebaseFirestore.getInstance();
-
-//        final DocumentReference docRef = FirebaseFirestore.getInstance()
-//                .collection("requests").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
-//
-//        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable DocumentSnapshot snapshot,
-//                                @Nullable FirebaseFirestoreException e) {
-//                if (e != null) {
-//                    Log.w("TAG", "Listen failed.", e);
-//                    return;
-//                }
-//
-//                if (snapshot != null && snapshot.exists()) {
-//
-//                    Request request = snapshot.toObject(Request.class);
-//                    list.add(request);
-//                    mAdapter.notifyDataSetChanged();
-//
-//                } else {
-//                    Log.d("TAG", "Current data: null");
-//                }
-//            }
-//        });
-//        final DocumentReference docRef = FirebaseFirestore.getInstance()
-//                .collection("requests").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
-
-//        DocumentReference docRef = db.collection("requests").document(mAuth.getCurrentUser().getUid());
-//        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//            @Override
-//            public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                Request request = documentSnapshot.toObject(Request.class);
-//                Log.d("TAG", "onSuccess: " + request);
-//                list.add(request);
-//                mAdapter.notifyDataSetChanged();
-//            }
-//        });
-
-        //fetch details from requesrts
+        //fetch details from subscription
         FirebaseFirestore.getInstance()
-                .collection("requests")
+                .collection("subscription")
                 .get()
-                .addOnSuccessListener( new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(  QuerySnapshot queryDocumentSnapshots) {
+                .addOnSuccessListener(queryDocumentSnapshots -> {
 
-                        for (DocumentSnapshot document :queryDocumentSnapshots.getDocuments()) {
+                    for (DocumentSnapshot document :queryDocumentSnapshots.getDocuments()) {
 
-                            Log.d("Requests", "onSuccess: " + document.getData());
+                        Log.d("Requests", "onSuccess: " + document.getData());
 
-                            Subscription subscription = new Subscription(
-                                    document.getString("userId"),
-                                    document.getDate("startDate"),
-                                    document.getDate("endDate"),
-                                    document.getString("disabled"),
-                                    document.getString("location"),
-                                    document.getString("subsctiption")
-                            );
+                        Subscription subscription = new Subscription(
+                                document.getString("userId"),
+                                document.getDate("startDate"),
+                                document.getDate("endDate"),
+                                document.getString("disabled"),
+                                document.getString("location"),
+                                document.getString("subscription"),
+                                document.getString("status"),
+                                document.getString("name"),
+                                document.getString("phone")
+                        );
 
+                        Log.d("TAG", "onSuccess: " + subscription.getUserId());
 
-//                            Request request = new Request(document.getString("subscription"), document.getString("location"),
-//                                    document.getDate("time"), document.getString("userId"));
-
-                            Log.d("TAG", "onSuccess: " + subscription.getUserId());
-
+                        if (subscription.getStatus().equals("0"))
                             list.add(subscription);
-                        }
-                        mAdapter.notifyDataSetChanged();
                     }
+                    mAdapter.notifyDataSetChanged();
                 });
 
-        //fetch name from user
-//        FirebaseFirestore.getInstance()
-
         return view;
+    }
+
+    @Override
+    public void onNotificationClick(int position) {
+
+        list.get(position);
+        Intent intent = new Intent(getActivity(), NotificationDetails.class);
+        Log.d(TAG, "onNotificationClick: " + position);
+        intent.putExtra("notify", list.get(position));
+        startActivity(intent);
     }
 }
