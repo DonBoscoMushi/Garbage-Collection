@@ -65,27 +65,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //fetch data from the database
 
     public String checkRole(){
-        String query = "SELECT " + DbConfig.COLUMN_ROLE + " FROM " + DbConfig.TABLE_USERS;
+        String query = "SELECT * FROM " + DbConfig.TABLE_USERS;
         String role = null;
 
         Log.d(TAG, "checkRole: inacheck role" );
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor c = db.rawQuery(query, null);
+        Log.d(TAG, "checkRole: imeenda kusearch data from database");
 
         if(c.moveToFirst()){
 
             role = c.getString(c.getColumnIndexOrThrow(DbConfig.COLUMN_ROLE));
-            Log.d(TAG, "checkRole: " + role);
+            Log.d(TAG, "imepata role: " + role);
 
-//            User user = new User();
-//            user.setRole(role);
-//            Log.d(TAG, "checkRole: " + user.getRole());
+            String fullname = c.getString(c.getColumnIndexOrThrow(DbConfig.COLUMN_FULLNAME));
+            String email = c.getString(c.getColumnIndexOrThrow(DbConfig.COLUMN_EMAIL));
+            String phone = c.getString(c.getColumnIndexOrThrow(DbConfig.COLUMN_PHONE));
+
+
+            User.getInstance().setFullname(fullname);
+            User.getInstance().setEmail(email);
+            User.getInstance().setPhone_no(phone);
+            User.getInstance().setRole(role);
+
         }
 
         c.close();
         db.close();
 
         return role;
+    }
+
+    public void userDetails(){
+
     }
 }

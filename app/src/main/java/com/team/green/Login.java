@@ -88,7 +88,7 @@ public class Login extends AppCompatActivity {
         internetCheck = new InternetCheck();
 
         if(!internetCheck.isConnected(this)){
-            Toast.makeText(this, "Connect na internet we mbwa", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Data disconnected", Toast.LENGTH_SHORT).show();
         }
 
 //        findViewById(R.id.admin).setOnClickListener(new View.OnClickListener() {
@@ -149,6 +149,7 @@ public class Login extends AppCompatActivity {
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Log.w("TAG", "signInWithEmail:failure", task.getException());
+                                    passwordTxt.setText("");
                                     Snackbar.make(view, "No user found", Snackbar.LENGTH_LONG)
                                             .setAction("Action", null).show();
 //                                    Toast.makeText(Login.this, "Email/Password incorrect.",
@@ -188,34 +189,24 @@ public class Login extends AppCompatActivity {
 
                     if (snapshot != null && snapshot.exists()) {
 
-                        //set firebase data to user modapackage com.team.green;
-
-//import androidx.annotation.NonNull;
-//import androidx.appcompat.app.AppCompatActivity;                        //set firebase data to user modapackage com.team.green;
-//
-//
-//import android.app.Activity;
-//import android.content.Intent;
-//import android.os.Bundle;
-//import android.util.Log;
-//import android.view.View;
-//import android.view.WindowManager;
-//import android.widget.Button;
-//import android.widget.EditText;
-//import android.widget.LinearLayout;l class
                         User user = snapshot.toObject(User.class);
-                        Log.d(TAG, "onEvent: " + user);
+                        Log.d(TAG, "greeen: " + user.getFullname());
 
-                        //send the cloud data to local databse
+                        //send the cloud data to local database
                         String Uid = FirebaseAuth.getInstance().getUid();
+                        Log.d(TAG, "onEvent: database user data" + user.getRole());
                         db.insert(Uid, user.getFullname(), user.getEmail(), user.getPhone_no(), user.getRole());
+
+                        Log.d(TAG, "btnLogin: " + user.getEmail());
 
                         String role = user.getRole();
                         if (role.equals("customer")) {
+                            Log.d(TAG, "onEvent: " + user.getRole());
                             startActivity(new Intent(getApplicationContext(), Home.class));
                             Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
                             finish();
-                        } else {
+                        } else if(role.equals("admin")){
+                            Log.d(TAG, "onEvent: " + user.getRole());
                             startActivity(new Intent(getApplicationContext(), Admin.class));
                             Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
                             finish();
@@ -233,28 +224,6 @@ public class Login extends AppCompatActivity {
 
         }
 
-//        DocumentReference mRef = mFirebaseFirestore.collection("users").document(user.getUid());
-//
-//        mRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//            @Override
-//            public void onSuccess(DocumentSnapshot snapshot) {
-//
-//                if (snapshot != null && snapshot.exists()) {
-//                    User user = snapshot.toObject(User.class);
-//
-//                    if (user.getRole().equals("customer")) {
-//                        startActivity(new Intent(getApplicationContext(), Home.class));
-//                        finish();
-//                    }
-//
-//                    if (user.getRole().equals("admin")) {
-//                        startActivity(new Intent(getApplicationContext(), Admin.class));
-//                        finish();
-//                    }
-//                }
-//            }
-//        });
-
     }
 
     @Override
@@ -264,11 +233,15 @@ public class Login extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         String role = db.checkRole();
-        Log.d(TAG, "onStart: " + role);
+        Log.d(TAG, "call checkRole: " + role );
+
+//        User userModel = new User();
+//        Toast.makeText(this, userModel.getFullname(), Toast.LENGTH_SHORT).show();
 
         if(currentUser != null){
             if(role != null){
 //                String role = user.getRole();
+                Log.d(TAG, "onStart angalia role: " + role);
 
                 if (role.equals("customer")) {
                     startActivity(new Intent(getApplicationContext(), Home.class));
@@ -280,14 +253,7 @@ public class Login extends AppCompatActivity {
                     finish();
                 }
             }
-//            else {
-//                greyedLinearLayout.setVisibility(View.VISIBLE);
-//                animationView.setVisibility(View.VISIBLE);
-//                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-//                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-//
-//                updateUI(currentUser);
-//            }
+
         }
     }
 

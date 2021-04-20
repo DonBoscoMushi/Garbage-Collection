@@ -38,7 +38,7 @@ public class Home extends AppCompatActivity {
         internetCheck = new InternetCheck();
 
         if(!internetCheck.isConnected(this)){
-            Toast.makeText(this, "Connect na internet we mbwa", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Connect with internet", Toast.LENGTH_SHORT).show();
         }
 
         collectionBox.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), Subscription.class)));
