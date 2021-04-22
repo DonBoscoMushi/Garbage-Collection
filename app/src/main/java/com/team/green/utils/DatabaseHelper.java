@@ -97,7 +97,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return role;
     }
 
-    public void userDetails(){
-
-    }
 }

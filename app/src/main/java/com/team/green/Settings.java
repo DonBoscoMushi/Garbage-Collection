@@ -21,7 +21,7 @@ public class Settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        setupBottomNav();
+//        setupBottomNav();
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -37,12 +37,12 @@ public class Settings extends AppCompatActivity {
         });
     }
 
-    public void setupBottomNav(){
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
-        BottomNavigation.enableNavigation(Settings.this, bottomNavigationView);
-
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(2);
-        menuItem.setChecked(true);
-    }
+//    public void setupBottomNav(){
+//        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
+//        BottomNavigation.enableNavigation(Settings.this, bottomNavigationView);
+//
+//        Menu menu = bottomNavigationView.getMenu();
+//        MenuItem menuItem = menu.getItem(2);
+//        menuItem.setChecked(true);
+//    }
 }

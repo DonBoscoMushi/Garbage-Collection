@@ -16,15 +16,15 @@ public class Profile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        setupBottomNav();
+//        setupBottomNav();
     }
 
-    public void setupBottomNav(){
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
-        BottomNavigation.enableNavigation(Profile.this, bottomNavigationView);
-
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(1);
-        menuItem.setChecked(true);
-    }
+//    public void setupBottomNav(){
+//        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
+//        BottomNavigation.enableNavigation(Profile.this, bottomNavigationView);
+//
+//        Menu menu = bottomNavigationView.getMenu();
+//        MenuItem menuItem = menu.getItem(1);
+//        menuItem.setChecked(true);
+//    }
 }

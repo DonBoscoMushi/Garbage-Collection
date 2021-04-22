@@ -7,6 +7,7 @@ import java.util.Date;
 
 public class Subscription implements Parcelable {
 
+    private String subscriptionId;
     private String userId;
     private Date startDate;
     private Date endDate;
@@ -18,6 +19,19 @@ public class Subscription implements Parcelable {
     private String phone;
 
     public Subscription() {
+    }
+
+    public Subscription(String subscriptionId, String userId, Date startDate, Date endDate, String disabled, String location, String subscription, String status, String name, String phone) {
+        this.subscriptionId = subscriptionId;
+        this.userId = userId;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.disabled = disabled;
+        this.location = location;
+        this.subscription = subscription;
+        this.status = status;
+        this.name = name;
+        this.phone = phone;
     }
 
     public Subscription(String userId, Date startDate, Date endDate, String disabled, String location, String subscription, String status, String name, String phone) {
@@ -33,6 +47,7 @@ public class Subscription implements Parcelable {
     }
 
     protected Subscription(Parcel in) {
+        subscriptionId = in.readString();
         userId = in.readString();
         disabled = in.readString();
         location = in.readString();
@@ -54,6 +69,14 @@ public class Subscription implements Parcelable {
             return new Subscription[size];
         }
     };
+
+    public String getSubscriptionId() {
+        return subscriptionId;
+    }
+
+    public void setSubscriptionId(String subscriptionId) {
+        this.subscriptionId = subscriptionId;
+    }
 
     public String getUserId() {
         return userId;
@@ -134,6 +157,7 @@ public class Subscription implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(subscriptionId);
         parcel.writeString(userId);
         parcel.writeString(disabled);
         parcel.writeString(location);

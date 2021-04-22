@@ -107,7 +107,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/cleaningbox"
+                android:id="@+id/cleaningServiceBox"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_below="@+id/collectionbox"
@@ -179,7 +179,7 @@
                 android:id="@+id/collectionRoutineBox"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:layout_below="@+id/cleaningbox"
+                android:layout_below="@+id/cleaningServiceBox"
                 android:layout_marginTop="25dp"
                 android:background="@drawable/border">
 

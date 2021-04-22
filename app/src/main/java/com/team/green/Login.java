@@ -257,6 +257,4 @@ public class Login extends AppCompatActivity {
         }
     }
 
-    //This function takes firebase data an store them in a local database.
-
 }

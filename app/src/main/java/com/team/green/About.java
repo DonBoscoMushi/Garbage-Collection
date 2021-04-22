@@ -25,19 +25,18 @@ public class About extends AppCompatActivity {
         connected = findViewById(R.id.connected);
         disconnected = findViewById(R.id.disconnected);
 
-        Network();
-        setupBottomNav();
     }
 
-    public void setupBottomNav(){
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
-        BottomNavigation.enableNavigation(About.this, bottomNavigationView);
-
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(3);
-        menuItem.setChecked(true);
-
-    }
+    //This is no longer needed
+//    public void setupBottomNav(){
+//        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
+//        BottomNavigation.enableNavigation(About.this, bottomNavigationView);
+//
+//        Menu menu = bottomNavigationView.getMenu();
+//        MenuItem menuItem = menu.getItem(3);
+//        menuItem.setChecked(true);
+//
+//    }
 
     //check network
     public void Network(){

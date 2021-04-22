@@ -141,6 +141,46 @@
                 android:src="@drawable/ic_baseline_person"/>
 
             <TextView
+                android:id="@+id/profileComplaint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit Profile"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:layout_marginStart="5dp"
+                android:textSize="17sp"
+                />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/linearL1"
+            android:layout_margin="15dp"
+            android:background="#A9A9A9" />
+
+
+        <LinearLayout
+            android:id="@+id/linear6"
+            android:layout_below="@id/view3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="5dp"
+            android:padding="5dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:padding="5dp"
+                android:src="@drawable/ic_baseline_person"/>
+
+            <TextView
                 android:id="@+id/profileEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -186,7 +226,7 @@
 
 
         <LinearLayout
-            android:id="@+id/linear5"
+            android:id="@+id/linear7"
             android:layout_below="@id/linear4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -202,6 +242,38 @@
                 android:layout_height="30dp"
                 android:padding="5dp"
                 android:src="@drawable/ic_baseline_contacts_24"/>
+
+            <TextView
+                android:id="@+id/profileFeedback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Feedback"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:layout_marginStart="5dp"
+                android:textSize="17sp"
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linear5"
+            android:layout_below="@id/linear7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:padding="5dp"
+                android:src="@drawable/ic_baseline_comment_24"/>
 
             <TextView
                 android:id="@+id/profileContacts"
@@ -231,6 +303,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:layout_marginBottom="15dp"
             android:fontFamily="@font/asap"
             android:layout_margin="15dp"
             android:textColor="@color/black"

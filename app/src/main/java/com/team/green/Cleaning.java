@@ -16,15 +16,15 @@ public class Cleaning extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cleaning);
 
-        setupBottomNav();
+//        setupBottomNav();
     }
 
-    public void setupBottomNav(){
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
-        BottomNavigation.enableNavigation(Cleaning.this, bottomNavigationView);
-
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(0);
-        menuItem.setChecked(true);
-    }
+//    public void setupBottomNav(){
+//        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
+//        BottomNavigation.enableNavigation(Cleaning.this, bottomNavigationView);
+//
+//        Menu menu = bottomNavigationView.getMenu();
+//        MenuItem menuItem = menu.getItem(0);
+//        menuItem.setChecked(true);
+//    }
 }

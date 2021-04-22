@@ -16,8 +16,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.team.green.MyAdapter;
 import com.team.green.R;
@@ -62,17 +66,40 @@ public class Attended_Notification_Fragment extends Fragment implements MyAdapte
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-//        findViewById(R.id.filldata).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                startActivity(new Intent(getApplicationContext(), com.team.green.Request.class));
-//            }
-//        });
-
         // specify an adapter
         mAdapter = new MyAdapter(list, this);
         recyclerView.setAdapter(mAdapter);
 
+
+
+        //snapshot listerner when data changes
+        //Firestore
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+//        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+//
+//        final DocumentReference docRef = FirebaseFirestore.getInstance()
+//                .collection("subscription").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+//
+//        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+//            @Override
+//            public void onEvent(@com.google.firebase.database.annotations.Nullable DocumentSnapshot snapshot,
+//                                @com.google.firebase.database.annotations.Nullable FirebaseFirestoreException e) {
+//                if (e != null) {
+//                    Log.w("TAG", "Listen failed.", e);
+//                    return;
+//                }
+//
+//                if (snapshot != null && snapshot.exists()) {
+//
+//                    Request request = snapshot.toObject(Request.class);
+//                    list.add();
+//                    mAdapter.notifyDataSetChanged();
+//
+//                } else {
+//                    Log.d("TAG", "Current data: null");
+//                }
+//            }
+//        });
 
         FirebaseFirestore.getInstance()
                 .collection("subscription")
@@ -86,6 +113,7 @@ public class Attended_Notification_Fragment extends Fragment implements MyAdapte
                             Log.d("Requests", "onSuccess: " + document.getData());
 
                             Subscription subscription = new Subscription(
+                                    document.getId(),
                                     document.getString("userId"),
                                     document.getDate("startDate"),
                                     document.getDate("endDate"),
@@ -117,7 +145,6 @@ public class Attended_Notification_Fragment extends Fragment implements MyAdapte
         Intent intent = new Intent(getActivity(), NotificationDetails.class);
         Log.d(TAG, "onNotificationClick: " + position);
         intent.putExtra("notify", (Parcelable) list.get(position));
-//        intent.putExtra("notify", list.get(position));
         startActivity(intent);
     }
 }

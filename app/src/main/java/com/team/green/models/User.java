@@ -9,10 +9,17 @@ public class User {
     private String role;
 
 
-    private static final User instance = new User();
+    private static User instance;
 
     public static User getInstance() {
         return instance;
+    }
+
+    public void resetUser(){
+        this.fullname = null;
+        this.phone_no = null;
+        this.email = null;
+        this.role = null;
     }
 
     private User() { }

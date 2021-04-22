@@ -10,13 +10,15 @@
         android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/indoor"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textColor="@color/black"
             android:gravity="center"
             />
@@ -42,7 +44,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="Appartments"
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:textColor="@color/black"
                     android:gravity="center"
                     android:textStyle="bold"
@@ -62,11 +64,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="Offices"
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:textColor="@color/black"
                     android:gravity="center"
-                    android:textStyle="bold"
-                    />
+                    android:textStyle="bold" />
             </LinearLayout>
             <LinearLayout
                 android:layout_marginStart="10dp"
@@ -82,7 +83,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="Schools"
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:textColor="@color/black"
                     android:gravity="center"
                     android:textStyle="bold"
@@ -93,13 +94,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:orientation="vertical">
         <TextView
             android:layout_marginTop="50dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/outdoor"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textColor="@color/black"
             android:gravity="center"
             />
@@ -109,14 +112,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginEnd="5dp"
-            >
+            android:layout_marginEnd="5dp">
             <LinearLayout
                 android:layout_marginStart="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
                 <ImageView
                     android:layout_width="130dp"
                     android:layout_height="130dp"
@@ -125,18 +126,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="gardening"
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:textColor="@color/black"
                     android:gravity="center"
-                    android:textStyle="bold"
-                    />
+                    android:textStyle="bold" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_marginStart="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
                 <ImageView
                     android:layout_width="130dp"
                     android:layout_height="130dp"
@@ -145,18 +145,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="Slashing"
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:textColor="@color/black"
                     android:gravity="center"
-                    android:textStyle="bold"
-                    />
+                    android:textStyle="bold" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_marginStart="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
                 <ImageView
                     android:layout_width="130dp"
                     android:layout_height="130dp"
@@ -165,27 +164,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="cutting trees"
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:textColor="@color/black"
                     android:gravity="center"
-                    android:textStyle="bold"
-                    />
+                    android:textStyle="bold"/>
+
             </LinearLayout>
+
         </LinearLayout>
+
     </LinearLayout>
+
     <Button
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="@string/request"
+        android:text="Call Us"
         android:textStyle="bold"
         android:layout_gravity="center"
-        android:background="@color/green"
+        android:background="@drawable/round_button"
         android:layout_marginTop="50dp"/>
-
-    <include
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        layout="@layout/layout_bottom_nav"/>
 
 </LinearLayout>

@@ -2,7 +2,6 @@
 
 package com.team.green.utils
 
-import android.annotation.TargetApi
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -11,9 +10,11 @@ import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkInfo
 import android.os.Build
+import android.view.View
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 
-class NetworkConnection  (private val context: Context): LiveData<Boolean>(){
+class NetworkConnection(private val context: Context): LiveData<Boolean>(){
 
     private var connectivityManager: ConnectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -84,4 +85,19 @@ class NetworkConnection  (private val context: Context): LiveData<Boolean>(){
         val activeNetwork: NetworkInfo? = connectivityManager.activeNetworkInfo
         postValue(activeNetwork?.isConnected == true)
     }
+
+
+    //check network
+//    fun network() {
+//        val networkConnection = NetworkConnection(context)
+//        networkConnection.observe(this, Observer { isConnected: Boolean ->
+//            if (isConnected) {
+//                disconnected.setVisibility(View.GONE)
+//                connected.setVisibility(View.VISIBLE)
+//            } else {
+//                connected.setVisibility(View.GONE)
+//                disconnected.setVisibility(View.VISIBLE)
+//            }
+//        })
+//    }
 }

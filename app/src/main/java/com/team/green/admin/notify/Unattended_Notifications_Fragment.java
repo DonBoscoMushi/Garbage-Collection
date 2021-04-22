@@ -67,9 +67,11 @@ public class  Unattended_Notifications_Fragment extends Fragment implements MyAd
 
                     for (DocumentSnapshot document :queryDocumentSnapshots.getDocuments()) {
 
-                        Log.d("Requests", "onSuccess: " + document.getData());
+                        Log.d("Requests", "onSuccess: " + document.getData() + "  " + document.getId());
+
 
                         Subscription subscription = new Subscription(
+                                document.getId(),
                                 document.getString("userId"),
                                 document.getDate("startDate"),
                                 document.getDate("endDate"),
