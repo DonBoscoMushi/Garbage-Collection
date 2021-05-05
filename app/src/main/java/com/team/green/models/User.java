@@ -9,7 +9,7 @@ public class User {
     private String role;
 
 
-    private static User instance;
+    private static User instance = new User();
 
     public static User getInstance() {
         return instance;

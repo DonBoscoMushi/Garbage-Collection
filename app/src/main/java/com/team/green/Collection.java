@@ -36,6 +36,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -45,9 +46,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.model.Document;
 import com.team.green.models.Request;
 import com.team.green.models.Subscription;
 import com.team.green.utils.BottomNavigation;
@@ -105,7 +108,6 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
         Intent intent = getIntent();
         subscription = intent.getStringExtra("Subscription");
 
-        setupBottomNav();
 
         if (checkService()) {
             getLocationPermision();
@@ -113,39 +115,33 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
             initialize();
 
         } else {
-            ////Funga activity and desplay an errror
+            ////Funga activity and display an error
         }
 
     }
 
+    //send a request when a location is obtained
     private void sendRequest(LatLng location, String mSubscription){
 
-//        Request request = new Request(
-//                mSubscription,
-//                location.toString(),
-//                currentTime,
-//                UserId
-//        );
-
-        //fetch user id and take name and phone number
-        FirebaseFirestore.getInstance()
-                .collection("users")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        for (QueryDocumentSnapshot document : task.getResult()){
-                            if (document.getId().equals(UserId)){
-                                Log.d(TAG, "onComplete: " + document.getId());
-                                name = document.getString("fullname");
-                                phone = document.getString("phone_no");
-
-                                Log.d(TAG, "onComplete: " + name + "  " + phone);
-                            }
-                        }
+        DocumentReference getUser = FirebaseFirestore.getInstance().collection("users")
+                .document(UserId);
+        getUser.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        name = document.getString("fullname");
+                        phone = document.getString("phone_no");
+                    } else {
+                        Log.d(TAG, "No such document");
                     }
-                });
-
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
 
         Subscription subscription = new Subscription(
                 UserId,
@@ -180,7 +176,6 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
                 });
 
 
-
         //An alert for payments
         new AlertDialog.Builder(this)
                 .setTitle("Payment")
@@ -200,6 +195,7 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
                 .show();
 
     }
+
 
     //requests
     private void addToRequests(String transactionId){
@@ -282,16 +278,6 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
         }
     }
 
-    public void setupBottomNav() {
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
-        BottomNavigation.enableNavigation(Collection.this, bottomNavigationView);
-
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(0);
-        menuItem.setChecked(true);
-    }
-
-
     //check if a map can be shown in this device
     public boolean checkService() {
 
@@ -348,7 +334,8 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
     }
 
     private void initializeMap() {
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
         assert mapFragment != null;
         mapFragment.getMapAsync(Collection.this);
     }
@@ -358,6 +345,16 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
         Log.d(TAG, "onMapReady: map ready function ipo hapa");
 
         mMap = googleMap;
+
+        // Create a LatLngBounds that includes the city of Dar es Salaam
+        LatLngBounds darEsSalaam = new LatLngBounds(
+                new LatLng(-7.12000, 38.89400), // SW bounds
+                new LatLng(-6.50200, 39.66100)  // NE bounds
+        );
+
+        // Constrain the camera target to the Adelaide bounds.
+        mMap.setLatLngBoundsForCameraTarget(darEsSalaam);
+
 
         if (permissionGranted) {
 

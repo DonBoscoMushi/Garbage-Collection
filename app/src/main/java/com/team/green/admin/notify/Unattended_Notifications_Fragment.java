@@ -69,7 +69,6 @@ public class  Unattended_Notifications_Fragment extends Fragment implements MyAd
 
                         Log.d("Requests", "onSuccess: " + document.getData() + "  " + document.getId());
 
-
                         Subscription subscription = new Subscription(
                                 document.getId(),
                                 document.getString("userId"),

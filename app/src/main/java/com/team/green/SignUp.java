@@ -23,15 +23,10 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.team.green.models.User;
 import com.team.green.utils.BasicJobs;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.regex.Pattern;
 
 public class SignUp extends AppCompatActivity {
 
@@ -145,7 +140,6 @@ public class SignUp extends AppCompatActivity {
                         WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
 
-
                 mAuth.createUserWithEmailAndPassword(email, password_1)
                         .addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
                             @Override
@@ -154,7 +148,7 @@ public class SignUp extends AppCompatActivity {
                                     // Sign in success, update UI with the signed-in user's information
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     assert user != null;
-                                    updateUI(user, email, fullname, password_1, phone, "customer");
+                                    updateUI(user, email, fullname, phone);
 
                                 } else {
                                     // If sign in fails, display a message to the user.
@@ -179,14 +173,14 @@ public class SignUp extends AppCompatActivity {
         });
     }
 
-    private void updateUI(FirebaseUser user, String email, String fullname, String password,
-                          String phone, String role) {
+    private void updateUI(FirebaseUser user, String email, String fullname,
+                          String phone) {
 
         User regUser = new User(
                 fullname,
                 phone,
                 email,
-                role
+                "customer"
         );
 
         DocumentReference mDocumentReference = mFirestore.collection("users").document(user.getUid());

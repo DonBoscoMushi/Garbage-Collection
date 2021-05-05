@@ -1,5 +1,7 @@
 package com.team.green.admin.notify;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -16,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -70,37 +73,6 @@ public class Attended_Notification_Fragment extends Fragment implements MyAdapte
         mAdapter = new MyAdapter(list, this);
         recyclerView.setAdapter(mAdapter);
 
-
-
-        //snapshot listerner when data changes
-        //Firestore
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-//        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-//
-//        final DocumentReference docRef = FirebaseFirestore.getInstance()
-//                .collection("subscription").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
-//
-//        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-//            @Override
-//            public void onEvent(@com.google.firebase.database.annotations.Nullable DocumentSnapshot snapshot,
-//                                @com.google.firebase.database.annotations.Nullable FirebaseFirestoreException e) {
-//                if (e != null) {
-//                    Log.w("TAG", "Listen failed.", e);
-//                    return;
-//                }
-//
-//                if (snapshot != null && snapshot.exists()) {
-//
-//                    Request request = snapshot.toObject(Request.class);
-//                    list.add();
-//                    mAdapter.notifyDataSetChanged();
-//
-//                } else {
-//                    Log.d("TAG", "Current data: null");
-//                }
-//            }
-//        });
-
         FirebaseFirestore.getInstance()
                 .collection("subscription")
                 .get()
@@ -140,11 +112,23 @@ public class Attended_Notification_Fragment extends Fragment implements MyAdapte
 
     @Override
     public void onNotificationClick(int position) {
+        //An alert for payments
+        new AlertDialog.Builder(getActivity())
+                .setTitle("Information")
+                .setMessage("This request is already attended")
 
-        list.get(position);
-        Intent intent = new Intent(getActivity(), NotificationDetails.class);
-        Log.d(TAG, "onNotificationClick: " + position);
-        intent.putExtra("notify", (Parcelable) list.get(position));
-        startActivity(intent);
+                // Specifying a listener allows you to take an action before dismissing the dialog.
+                // The dialog is automatically dismissed when a dialog button is clicked.
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Continue with delete operation
+                    }
+                })
+
+                // A null listener allows the button to dismiss the dialog and take no further action.
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+
     }
 }

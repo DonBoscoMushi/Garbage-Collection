@@ -8,10 +8,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
@@ -29,6 +32,8 @@ import java.util.Date;
      TextView name_txt, phone_txt, start_date, subscription_txt;
      Button goTo, attended;
      private String TAG = "Notification";
+     private LottieAnimationView animationView;
+     private LinearLayout greyedLinearLayout;
 
      //Firestore
      FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -45,6 +50,10 @@ import java.util.Date;
         subscription_txt = findViewById(R.id.subscription_type_txt);
         goTo = findViewById(R.id.to_location);
         attended = findViewById(R.id.attended);
+
+        greyedLinearLayout = findViewById(R.id.greyedBg);
+        animationView = findViewById(R.id.animatedDialog);
+        animationView.setVisibility(View.GONE);
 
         Intent intent = getIntent();
 
@@ -74,6 +83,10 @@ import java.util.Date;
             @Override
             public void onClick(View view) {
 
+                greyedLinearLayout.setVisibility(View.VISIBLE);
+                animationView.setVisibility(View.VISIBLE);
+                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
                 Log.d(TAG, "onClick Attended: " + uId);
                 DocumentReference updateStatus = db.collection("subscription").document(subscriptionId);
@@ -88,6 +101,9 @@ import java.util.Date;
                                 Toast.makeText(NotificationDetails.this, "Attended", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(NotificationDetails.this, Notification.class));
                                 finish();
+                                animationView.setVisibility(View.GONE);
+                                greyedLinearLayout.setVisibility(View.GONE);
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
