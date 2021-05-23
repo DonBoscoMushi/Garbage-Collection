@@ -76,8 +76,8 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onClick(final View view) {
 
-                fullname = fullnameTxt.getText().toString();
                 email = emailTxt.getText().toString();
+                fullname = fullnameTxt.getText().toString();
                 password_1 = passwordTxt1.getText().toString();
                 password_2 = passwordTxt2.getText().toString();
                 phone = phoneTxt.getText().toString();
@@ -140,7 +140,6 @@ public class SignUp extends AppCompatActivity {
                         WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
 
-
                 mAuth.createUserWithEmailAndPassword(email, password_1)
                         .addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
                             @Override
@@ -149,7 +148,7 @@ public class SignUp extends AppCompatActivity {
                                     // Sign in success, update UI with the signed-in user's information
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     assert user != null;
-                                    updateUI(user, email, fullname, password_1, phone, "customer");
+                                    updateUI(user, email, fullname, phone);
 
                                 } else {
                                     // If sign in fails, display a message to the user.
@@ -174,14 +173,14 @@ public class SignUp extends AppCompatActivity {
         });
     }
 
-    private void updateUI(FirebaseUser user, String email, String fullname, String password,
-                          String phone, String role) {
+    private void updateUI(FirebaseUser user, String email, String fullname,
+                          String phone) {
 
         User regUser = new User(
                 fullname,
                 phone,
                 email,
-                role
+                "customer"
         );
 
         DocumentReference mDocumentReference = mFirestore.collection("users").document(user.getUid());

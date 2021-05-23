@@ -1,60 +1,41 @@
 package com.igm.garbage.models;
 
-import java.util.Date;
-
 public class Request {
-    private String Subscription;
-    private String location;
-    private Date time;
-    private String UserId;
+    private String userId;
+    private String status;
+    private String transactionId;
 
-    public Request(String subscription, String location, Date time, String userId) {
-        Subscription = subscription;
-        this.location = location;
-        this.time = time;
-        UserId = userId;
+    public Request() {
     }
 
-    public String getSubscription() {
-        return Subscription;
-    }
-
-    public void setSubscription(String subscription) {
-        Subscription = subscription;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public Date getTime() {
-        return time;
-    }
-
-    public void setTime(Date time) {
-        this.time = time;
+    public Request(String userId, String status, String transactionId) {
+        this.userId = userId;
+        this.status = status;
+        this.transactionId = transactionId;
     }
 
     public String getUserId() {
-        return UserId;
+        return userId;
     }
 
     public void setUserId(String userId) {
-        UserId = userId;
+        this.userId = userId;
     }
 
-    @Override
-    public String toString() {
-        return "Request{" +
-                "Subscription='" + Subscription + '\'' +
-                ", location='" + location + '\'' +
-                ", time=" + time +
-                ", UserId='" + UserId + '\'' +
-                '}';
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
     }
 }
 

@@ -6,15 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".admin.Admin">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="521dp"
-        android:layout_marginBottom="80dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+    <include
+        android:id="@+id/layout_toolbar"
+        layout="@layout/app_toolbar"/>
 
     <Button
         android:id="@+id/regAdmin"
@@ -25,7 +19,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.455"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recycler_view" />
+        app:layout_constraintTop_toBottomOf="@+id/layout_toolbar" />
 
     <Button
         android:id="@+id/notify"

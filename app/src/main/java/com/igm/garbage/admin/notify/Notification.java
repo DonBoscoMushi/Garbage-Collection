@@ -1,9 +1,9 @@
 package com.igm.garbage.admin.notify;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.NotificationChannel;
@@ -12,12 +12,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 import com.igm.garbage.R;
+import com.igm.garbage.models.Subscription;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Notification extends AppCompatActivity {
 
@@ -25,37 +25,31 @@ public class Notification extends AppCompatActivity {
     private static final String CHANNEL_NAME = "Green";
     private static final String  CHANNEL_DESCRIPTION = "Clean City";
 
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+
     TextView textView;
+    List<Subscription> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
+//        recyclerView.setHasFixedSize(true);
+//
+//        layoutManager = new LinearLayoutManager(this);
+//        recyclerView.setLayoutManager(layoutManager);
+
         setTopTabs();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
             channel.setDescription(CHANNEL_DESCRIPTION);
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(channel);
         }
-
-//        textView = findViewById(R.id.textView);
-
-        FirebaseInstanceId.getInstance().getInstanceId()
-                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
-
-                        if (task.isSuccessful()){
-                            String token = task.getResult().getToken();
-//                            textView.setText(token);
-                        }else {
-//                            textView.setText(task.getException().getMessage());
-                        }
-                    }
-                });
 
     }
 
@@ -67,6 +61,7 @@ public class Notification extends AppCompatActivity {
                         .setSmallIcon(R.drawable.ic_notification)
                         .setContentTitle("Its working ...")
                         .setContentText("1st Notification")
+                        .setWhen(System.currentTimeMillis())
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);

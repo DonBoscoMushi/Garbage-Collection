@@ -8,7 +8,21 @@ public class User {
     private String email;
     private String role;
 
-    public User() { }
+
+    private static User instance = new User();
+
+    public static User getInstance() {
+        return instance;
+    }
+
+    public void resetUser(){
+        this.fullname = null;
+        this.phone_no = null;
+        this.email = null;
+        this.role = null;
+    }
+
+    private User() { }
 
     public User(String fullname, String phone_no, String email, String role) {
         this.fullname = fullname;

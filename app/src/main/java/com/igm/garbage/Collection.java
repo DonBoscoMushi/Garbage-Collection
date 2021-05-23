@@ -17,8 +17,6 @@ import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
@@ -36,24 +34,28 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.igm.garbage.models.Request;
-import com.igm.garbage.utils.BottomNavigation;
+import com.igm.garbage.models.Subscription;
 import com.igm.garbage.utils.CheckNetworkGps;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class Collection extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -61,7 +63,7 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    String UserId;
+    String UserId, name, phone;
 
     private static final int ERROR_DIALOG_REQUEST = 9001;
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
@@ -89,6 +91,7 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
         checkNetworkGps = new CheckNetworkGps();
         checkNetworkGps.checkNetworkGps(Collection.this);
         currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
 
         Log.d(TAG, "onCreate: " + FirebaseAuth.getInstance().getCurrentUser().getUid());
         UserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -96,7 +99,6 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
         Intent intent = getIntent();
         subscription = intent.getStringExtra("Subscription");
 
-        setupBottomNav();
 
         if (checkService()) {
             getLocationPermision();
@@ -104,26 +106,55 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
             initialize();
 
         } else {
-            ////Funga activity and desplay an errror
+            ////Funga activity and display an error
         }
 
     }
 
+    //send a request when a location is obtained
     private void sendRequest(LatLng location, String mSubscription){
 
-        Request request = new Request(
-                mSubscription,
-                location.toString(),
+        DocumentReference getUser = FirebaseFirestore.getInstance().collection("users")
+                .document(UserId);
+        getUser.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        name = document.getString("fullname");
+                        phone = document.getString("phone_no");
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+
+        Subscription subscription = new Subscription(
+                UserId,
                 currentTime,
-                UserId
+                currentTime,
+                "0",
+                location.toString(),
+                mSubscription,
+                "0",
+                name,
+                phone
         );
 
-        DocumentReference mDocumentReference = db.collection("requests").document(UserId);
+//        DocumentReference mDocumentReference = db.collection("requests");
+        CollectionReference toSubscription = db.collection("subscription");
 
-        mDocumentReference.set(request)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
+        toSubscription.add(subscription)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
-                    public void onSuccess(Void aVoid) {
+                    public void onSuccess(DocumentReference documentReference) {
+                        addToRequests(documentReference.getId());
+                        Log.d(TAG, "Check document Id: " + documentReference.getId());
                         Toast.makeText(Collection.this, "Your request is sent. You will be notified", Toast.LENGTH_SHORT).show();
                     }
                 })
@@ -136,7 +167,7 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
                 });
 
 
-
+        //An alert for payments
         new AlertDialog.Builder(this)
                 .setTitle("Payment")
                 .setMessage("Complete payments through this number. 0743313344 With the name Garbage Collection Company and wait for confirmation")
@@ -153,6 +184,33 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
                 .setNegativeButton(android.R.string.no, null)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
+
+    }
+
+
+    //requests
+    private void addToRequests(String transactionId){
+
+        Request request = new Request(
+                UserId,
+                "0",
+                transactionId
+        );
+
+        CollectionReference toRequests = db.collection("requests");
+        toRequests.add(request)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "toRequest: Requests sents" );
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "toRequest: failed");
+                    }
+                });
 
     }
 
@@ -211,15 +269,7 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
         }
     }
 
-    public void setupBottomNav() {
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
-        BottomNavigation.enableNavigation(Collection.this, bottomNavigationView);
-
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(0);
-        menuItem.setChecked(true);
-    }
-
+    //check if a map can be shown in this device
     public boolean checkService() {
 
         int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(Collection.this);
@@ -275,7 +325,8 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
     }
 
     private void initializeMap() {
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
         assert mapFragment != null;
         mapFragment.getMapAsync(Collection.this);
     }
@@ -285,6 +336,16 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
         Log.d(TAG, "onMapReady: map ready function ipo hapa");
 
         mMap = googleMap;
+
+        // Create a LatLngBounds that includes the city of Dar es Salaam
+        LatLngBounds darEsSalaam = new LatLngBounds(
+                new LatLng(-7.12000, 38.89400), // SW bounds
+                new LatLng(-6.50200, 39.66100)  // NE bounds
+        );
+
+        // Constrain the camera target to the Adelaide bounds.
+        mMap.setLatLngBoundsForCameraTarget(darEsSalaam);
+
 
         if (permissionGranted) {
 

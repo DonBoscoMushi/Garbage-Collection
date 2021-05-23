@@ -7,256 +7,251 @@
     android:background="@color/white"
     android:id="@+id/Rl1">
 
-    <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <include
+        android:id="@+id/layout_toolbar"
+        layout="@layout/app_toolbar"/>
 
-        <LinearLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_toolbar">
+
+        <RelativeLayout
+            android:id="@+id/Rl2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp">
+
+            <TextView
+                android:id="@+id/serviceTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/asap"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="Choose Service"
+                android:textColor="@android:color/black"
+                android:textSize="40sp"/>
 
             <RelativeLayout
-                android:id="@+id/Rl2"
+                android:id="@+id/collectionbox"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingStart="15dp"
-                android:paddingTop="15dp"
-                android:paddingEnd="15dp">
+                android:layout_height="150dp"
+                android:layout_below="@id/serviceTxt"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/border"
+                android:padding="1dp">
 
-                <TextView
-                    android:id="@+id/serviceTxt"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:fontFamily="@font/asap"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:text="Choose Service"
-                    android:textColor="@android:color/black"
-                    android:textSize="40sp" />
-
-                <RelativeLayout
-                    android:id="@+id/collectionbox"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_below="@id/serviceTxt"
-                    android:layout_marginTop="25dp"
-                    android:background="@drawable/border"
-                    android:padding="1dp">
+                    android:layout_height="match_parent"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:baselineAligned="false"
-                        android:orientation="horizontal"
-                        android:weightSum="4">
+                        android:layout_weight="1.2">
 
-                        <LinearLayout
-                            android:layout_width="0dp"
+                        <ImageView
+                            android:id="@+id/collectionicon"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_weight="1.2">
-
-                            <ImageView
-                                android:id="@+id/collectionicon"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_marginStart="1dp"
-                                android:src="@drawable/garbage_truck" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_margin="10dp"
-                            android:layout_weight="2.8"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/collectiontext"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:fontFamily="@font/asap"
-                                android:maxLines="1"
-                                android:text="Garbage Collection"
-                                android:textColor="@color/black"
-                                android:textSize="23dp"
-                                android:textStyle="bold" />
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_margin="15dp"
-                                android:background="@color/lightgray" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:fontFamily="@font/asap"
-                                android:gravity="center"
-                                android:text="Make your collection order"
-                                android:textSize="17sp" />
-
-                        </LinearLayout>
-
+                            android:layout_marginStart="1dp"
+                            android:src="@drawable/garbage_truck" />
 
                     </LinearLayout>
 
-                </RelativeLayout>
-
-<!--                <RelativeLayout-->
-<!--                    android:id="@+id/cleaningbox"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="150dp"-->
-<!--                    android:layout_below="@+id/collectionbox"-->
-<!--                    android:layout_marginTop="25dp"-->
-<!--                    android:background="@drawable/border">-->
-
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:baselineAligned="false"-->
-<!--                        android:orientation="horizontal"-->
-<!--                        android:weightSum="4">-->
-
-<!--                        <LinearLayout-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_height="match_parent"-->
-<!--                            android:layout_weight="1.2">-->
-
-<!--                            <ImageView-->
-<!--                                android:id="@+id/cleaningicon"-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="match_parent"-->
-<!--                                android:layout_marginStart="1dp"-->
-<!--                                android:src="@drawable/cleaning" />-->
-
-<!--                        </LinearLayout>-->
-
-<!--                        <LinearLayout-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_height="match_parent"-->
-<!--                            android:layout_margin="10dp"-->
-<!--                            android:layout_weight="2.8"-->
-<!--                            android:gravity="center"-->
-<!--                            android:orientation="vertical">-->
-
-<!--                            <TextView-->
-<!--                                android:id="@+id/cleaningtext"-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_marginTop="10dp"-->
-<!--                                android:fontFamily="@font/asap"-->
-<!--                                android:maxLines="1"-->
-<!--                                android:text="Cleaning Service"-->
-<!--                                android:textColor="@color/black"-->
-<!--                                android:textSize="23dp"-->
-<!--                                android:textStyle="bold" />-->
-
-<!--                            <View-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="1dp"-->
-<!--                                android:layout_margin="15dp"-->
-<!--                                android:background="@color/lightgray" />-->
-
-<!--                            <TextView-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="match_parent"-->
-<!--                                android:fontFamily="@font/asap"-->
-<!--                                android:gravity="center"-->
-<!--                                android:text="Check suitable cleaning package for your building"-->
-<!--                                android:textSize="17sp" />-->
-
-<!--                        </LinearLayout>-->
-
-
-<!--                    </LinearLayout>-->
-
-<!--                </RelativeLayout>-->
-
-                <RelativeLayout
-                    android:id="@+id/collectionRoutineBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_below="@+id/collectionbox"
-                    android:layout_marginTop="25dp"
-                    android:background="@drawable/border">
-
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:baselineAligned="false"
-                        android:orientation="horizontal"
-                        android:weightSum="4">
+                        android:layout_margin="10dp"
+                        android:layout_weight="2.8"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                        <LinearLayout
-                            android:layout_width="0dp"
+                        <TextView
+                            android:id="@+id/collectiontext"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/asap"
+                            android:maxLines="1"
+                            android:text="Garbage Collection"
+                            android:textColor="@color/black"
+                            android:textSize="23dp"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_margin="15dp"
+                            android:background="#A9A9A9" />
+
+                        <TextView
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="1.2">
-
-                            <ImageView
-                                android:id="@+id/timetableicon"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_marginStart="1dp"
-                                android:src="@drawable/timetable" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_margin="10dp"
-                            android:layout_weight="2.8"
+                            android:fontFamily="@font/asap"
                             android:gravity="center"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/timetabletext"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:fontFamily="@font/asap"
-                                android:maxLines="1"
-                                android:text="Collection Routine"
-                                android:textColor="@color/black"
-                                android:textSize="23dp"
-                                android:textStyle="bold" />
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_margin="15dp"
-                                android:background="@color/lightgray" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:fontFamily="@font/asap"
-                                android:gravity="center"
-                                android:text="Check the collection timetable"
-                                android:textSize="17sp" />
-
-                        </LinearLayout>
-
+                            android:text="Make your collection order"
+                            android:textSize="17sp" />
 
                     </LinearLayout>
 
-                </RelativeLayout>
+
+                </LinearLayout>
 
             </RelativeLayout>
 
-        </LinearLayout>
+            <RelativeLayout
+                android:id="@+id/cleaningServiceBox"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_below="@+id/collectionbox"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/border">
 
-    </ScrollView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
 
-    <include
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/scrollView"
-        layout="@layout/layout_bottom_nav"/>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.2">
+
+                        <ImageView
+                            android:id="@+id/cleaningicon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="1dp"
+                            android:src="@drawable/cleaning" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        android:layout_weight="2.8"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/cleaningtext"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/asap"
+                            android:maxLines="1"
+                            android:text="Cleaning Service"
+                            android:textColor="@color/black"
+                            android:textSize="23dp"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_margin="15dp"
+                            android:background="#A9A9A9" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/asap"
+                            android:gravity="center"
+                            android:text="Check suitable cleaning service for your place"
+                            android:textSize="17sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/collectionRoutineBox"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_below="@+id/cleaningServiceBox"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/border">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.2">
+
+                        <ImageView
+                            android:id="@+id/timetableicon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="1dp"
+                            android:src="@drawable/timetable" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        android:layout_weight="2.8"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/timetabletext"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/asap"
+                            android:maxLines="1"
+                            android:text="Collection Routine"
+                            android:textColor="@color/black"
+                            android:textSize="23dp"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_margin="15dp"
+                            android:background="#A9A9A9" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/asap"
+                            android:gravity="center"
+                            android:text="Check the collection timetable"
+                            android:textSize="17sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+<!--    <include-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/scrollView"-->
+<!--        layout="@layout/layout_bottom_nav"/>-->
 
 </RelativeLayout>

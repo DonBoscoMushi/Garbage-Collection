@@ -6,10 +6,82 @@
     android:layout_height="match_parent"
     tools:context=".About">
 
-    <include
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        layout="@layout/layout_bottom_nav"/>
+        android:layout_height="match_parent"
+        android:id="@+id/disconnected"
+        android:gravity="center"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/disconnected"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Disconnected"
+            android:textAllCaps="true"
+            android:textColor="#FF0000"
+            android:textSize="24sp"
+            android:fontFamily="@font/asap"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/asap"
+            android:gravity="center"
+            android:text="You are offline"
+            android:textSize="18sp"
+            android:background="#AA000000"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/connected"
+        android:visibility="gone"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/connected"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Connected"
+            android:textAllCaps="true"
+            android:textColor="@color/green"
+            android:textSize="24sp"
+            android:fontFamily="@font/asap"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/asap"
+            android:gravity="center"
+            android:text="Back Online"
+            android:textSize="18sp"
+            android:background="@color/green"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
 
 </RelativeLayout>

@@ -1,16 +1,27 @@
 package com.igm.garbage.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.annotations.Nullable;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.igm.garbage.MyAdapter;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.igm.garbage.ProfileDialogFragment;
 import com.igm.garbage.R;
 import com.igm.garbage.admin.notify.Notification;
 import com.igm.garbage.models.Request;
@@ -24,104 +35,65 @@ public class Admin extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     List<Request> list = new ArrayList<>();
 
+    private static final String CHANNEL_ID = "Green";
+    private static final String CHANNEL_NAME = "Green";
+    private static final String  CHANNEL_DESCRIPTION = "Clean City";
+
+    ImageView profileImage;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
-        recyclerView = findViewById(R.id.recycler_view);
+//        recyclerView = findViewById(R.id.recycler_view);
+        profileImage = findViewById(R.id.profile_icon);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription(CHANNEL_DESCRIPTION);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
 
         //Firestore
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-//        list.addAll(Arrays.asList("elephant","hyena","chicken",
-//                "girrafe","penguin","blackbird","crown","dove","lion",
-//                "quora","bird","snake","milk","hawky","turkey"));
-        recyclerView.setHasFixedSize(true);
 
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
 
-        // use a linear layout manager
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
+        final DocumentReference docRef = FirebaseFirestore.getInstance()
+                .collection("requests").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-//        findViewById(R.id.filldata).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                startActivity(new Intent(getApplicationContext(), com.igm.garbage.Request.class));
-//            }
-//        });
+        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot snapshot,
+                                @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    Log.w("TAG", "Listen failed.", e);
+                    return;
+                }
 
-        // specify an adapter (see also next example)
-        mAdapter = new MyAdapter(list);
-        recyclerView.setAdapter(mAdapter);
+                if (snapshot != null && snapshot.exists()) {
 
-//        mFirebaseFirestore  = FirebaseFirestore.getInstance();
+                    Request request = snapshot.toObject(Request.class);
+                    list.add(request);
+                    mAdapter.notifyDataSetChanged();
 
-//        final DocumentReference docRef = FirebaseFirestore.getInstance()
-//                .collection("requests").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
-//
-//        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable DocumentSnapshot snapshot,
-//                                @Nullable FirebaseFirestoreException e) {
-//                if (e != null) {
-//                    Log.w("TAG", "Listen failed.", e);
-//                    return;
-//                }
-//
-//                if (snapshot != null && snapshot.exists()) {
-//
-//                    Request request = snapshot.toObject(Request.class);
-//                    list.add(request);
-//                    mAdapter.notifyDataSetChanged();
-//
-//                } else {
-//                    Log.d("TAG", "Current data: null");
-//                }
-//            }
-//        });
-//        final DocumentReference docRef = FirebaseFirestore.getInstance()
-//                .collection("requests").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                } else {
+                    Log.d("TAG", "Current data: null");
+                }
+            }
+        });
 
-//        DocumentReference docRef = db.collection("requests").document(mAuth.getCurrentUser().getUid());
-//        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//            @Override
-//            public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                Request request = documentSnapshot.toObject(Request.class);
-//                Log.d("TAG", "onSuccess: " + request);
-//                list.add(request);
-//                mAdapter.notifyDataSetChanged();
-//            }
-//        });
+        profileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-        /**
-        FirebaseFirestore.getInstance()
-                .collection("requests")
-                .get()
-                .addOnSuccessListener(this, new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(  QuerySnapshot queryDocumentSnapshots) {
-
-                        for (DocumentSnapshot document :queryDocumentSnapshots.getDocuments()) {
-
-                            Log.d("Requests", "onSuccess: " + document.getData());
-
-                            Request request = new Request(document.getString("subscription"), document.getString("location"),
-                                    document.getDate("time"), document.getString("userId"));
-
-                            Log.d("TAG", "onSuccess: " + request.getLocation());
-
-                            list.add(request);
-                        }
-                        mAdapter.notifyDataSetChanged();
-                    }
-                });
-
-        **/
+                ProfileDialogFragment profileDialogFragment = new ProfileDialogFragment();
+                profileDialogFragment.show(getSupportFragmentManager(), "Green");
+            }
+        });
 
         findViewById(R.id.regAdmin).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,6 +108,23 @@ public class Admin extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), Notification.class));
             }
         });
+
+    }
+
+    //Display new notifications
+    private void displayNotification( ){
+
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this, CHANNEL_ID)
+                        .setSmallIcon(R.drawable.ic_notification)
+                        .setContentTitle("Its working ...")
+                        .setContentText("1st Notification")
+                        .setWhen(System.currentTimeMillis())
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        notificationManager.notify(1, mBuilder.build());
+
 
     }
 }
