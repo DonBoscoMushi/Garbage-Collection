@@ -3,10 +3,10 @@ apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.1"
+    buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.team.green"
+        applicationId "com.igm.garbage"
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
