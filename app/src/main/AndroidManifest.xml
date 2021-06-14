@@ -32,7 +32,6 @@
         <activity android:name="com.igm.garbage.About" />
         <activity android:name="com.igm.garbage.Profile" />
         <activity android:name="com.igm.garbage.SignUp" />
-        <activity android:name="com.igm.garbage.Cleaning" />
         <activity android:name="com.igm.garbage.Subscription" />
         <activity android:name="com.igm.garbage.Collection" />
         <activity android:name="com.igm.garbage.Welcome">

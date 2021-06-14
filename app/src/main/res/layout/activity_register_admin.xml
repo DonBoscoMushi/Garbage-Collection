@@ -23,7 +23,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Register Admin"
+                android:text="Register Collector"
                 android:textSize="40sp"
                 android:maxLines="1"
                 android:textColor="#000"
