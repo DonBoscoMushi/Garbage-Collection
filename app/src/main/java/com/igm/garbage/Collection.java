@@ -155,7 +155,7 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
                     public void onSuccess(DocumentReference documentReference) {
                         addToRequests(documentReference.getId());
                         Log.d(TAG, "Check document Id: " + documentReference.getId());
-                        Toast.makeText(Collection.this, "Your request is sent. You will be notified", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Collection.this, "Your request already sent.", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -170,7 +170,7 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
         //An alert for payments
         new AlertDialog.Builder(this)
                 .setTitle("Payment")
-                .setMessage("Complete payments through this number. 0743313344 With the name Garbage Collection Company and wait for confirmation")
+                .setMessage("Complete payments through 55773 With the name Garbage Collection Company and wait for collection")
 
                 // Specifying a listener allows you to take an action before dismissing the dialog.
                 // The dialog is automatically dismissed when a dialog button is clicked.

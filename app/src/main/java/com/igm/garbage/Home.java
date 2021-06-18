@@ -47,7 +47,7 @@ public class Home extends AppCompatActivity {
 
         collectionBox.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), Subscription.class)));
 
-        cleaningServiceBox.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), Cleaning.class)));
+
 
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
