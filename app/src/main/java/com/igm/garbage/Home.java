@@ -19,6 +19,8 @@ public class Home extends AppCompatActivity {
     InternetCheck internetCheck;
     ImageView profileImage;
 
+    ProfileDialogFragment profileDialogFragment;
+
 //    View pView = findViewById(android.R.id.content).getRootView();
 
     @Override

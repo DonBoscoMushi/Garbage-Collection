@@ -9,6 +9,8 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import com.igm.garbage.models.User;
+
 import static android.content.ContentValues.TAG;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
