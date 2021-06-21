@@ -53,7 +53,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                ProfileDialogFragment profileDialogFragment = new ProfileDialogFragment();
+                ProfileDialogFragment profileDialogFragment = ProfileDialogFragment.getInstance();
                 profileDialogFragment.show(getSupportFragmentManager(), "Green");
             }
         });
@@ -65,5 +65,6 @@ public class Home extends AppCompatActivity {
             }
         });
     }
+
 
 }

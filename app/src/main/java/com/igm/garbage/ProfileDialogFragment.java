@@ -44,6 +44,7 @@ public class ProfileDialogFragment extends DialogFragment {
         profileEmail.setText(email);
 
         //remove feedback
+
         if(User.getInstance().getRole().equals("admin")){
             linearLayout7.setVisibility(View.GONE);
         }
@@ -88,5 +89,11 @@ public class ProfileDialogFragment extends DialogFragment {
 
         return view;
 
+    }
+
+    public static ProfileDialogFragment getInstance() {
+
+        ProfileDialogFragment pdf = new ProfileDialogFragment();
+        return pdf;
     }
 }
