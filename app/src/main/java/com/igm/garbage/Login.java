@@ -47,7 +47,7 @@ public class Login extends AppCompatActivity {
     DatabaseHelper db;
     InternetCheck internetCheck;
 
-    Button registerBtn, loginBtn;
+    Button registerBtn, loginBtn, forgotPassword;
     private String TAG = "Login";
 
     @Override
@@ -67,6 +67,7 @@ public class Login extends AppCompatActivity {
 
         animationView = findViewById(R.id.animatedDialog);
         greyedLinearLayout = findViewById(R.id.greyedBg);
+        forgotPassword = findViewById(R.id.forgot_password);
         animationView.setVisibility(View.GONE);
 
         registerBtn = findViewById(R.id.txtRegister);
@@ -77,6 +78,14 @@ public class Login extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Login.this, SignUp.class);
                 startActivity(intent);
+            }
+        });
+
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Login.this, ForgotPassword.class);
+                startActivity(i);
             }
         });
 
@@ -123,6 +132,7 @@ public class Login extends AppCompatActivity {
                     return;
                 }
 
+                //hide keybord and load animation
                 BasicJobs.hideKeyboard(Login.this);
                 greyedLinearLayout.setVisibility(View.VISIBLE);
                 animationView.setVisibility(View.VISIBLE);

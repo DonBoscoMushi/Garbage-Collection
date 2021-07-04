@@ -160,7 +160,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/payPerServiceSubscription"
+
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -178,6 +178,7 @@
                 android:layout_margin="10dp">
 
                 <LinearLayout
+                    android:id="@+id/payPerServiceSubscription"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
@@ -233,12 +234,5 @@
 
     </LinearLayout>
 
-
-
-    <include
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/layout_bottom_nav"/>
 
 </RelativeLayout>

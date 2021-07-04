@@ -186,18 +186,15 @@ public class SignUp extends AppCompatActivity {
         DocumentReference mDocumentReference = mFirestore.collection("users").document(user.getUid());
 
         mDocumentReference.set(regUser)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(SignUp.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-                        animationView.setVisibility(View.GONE);
-                        greyedLinearLayout.setVisibility(View.GONE);
-                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                        Toast.makeText(SignUp.this, "Login to Continue", Toast.LENGTH_SHORT).show();
-                        mAuth.signOut();
-                        startActivity(new Intent(getApplicationContext(), Login.class));
-                        finish();
-                    }
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(SignUp.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                    animationView.setVisibility(View.GONE);
+                    greyedLinearLayout.setVisibility(View.GONE);
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    Toast.makeText(SignUp.this, "Login to Continue", Toast.LENGTH_SHORT).show();
+                    mAuth.signOut();
+                    startActivity(new Intent(getApplicationContext(), Login.class));
+                    finish();
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override

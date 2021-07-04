@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.igm.garbage.utils.DatabaseHelper;
 import com.igm.garbage.utils.InternetCheck;
 
 public class Home extends AppCompatActivity {
@@ -18,10 +19,9 @@ public class Home extends AppCompatActivity {
     RelativeLayout collectionBox, collectionR, cleaningServiceBox;
     InternetCheck internetCheck;
     ImageView profileImage;
+    DatabaseHelper db;
 
     ProfileDialogFragment profileDialogFragment;
-
-//    View pView = findViewById(android.R.id.content).getRootView();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +37,9 @@ public class Home extends AppCompatActivity {
         collectionR = findViewById(R.id.collectionRoutineBox);
         profileImage = findViewById(R.id.profile_icon);
         cleaningServiceBox = findViewById(R.id.cleaningServiceBox);
+
+        db = new DatabaseHelper(Home.this);
+        db.checkRole();
 
         //check internet
         internetCheck = new InternetCheck();

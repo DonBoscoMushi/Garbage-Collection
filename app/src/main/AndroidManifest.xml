@@ -19,30 +19,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.igm.garbage.admin.NotificationDetails"></activity>
+        <activity android:name=".Feedback"></activity>
+        <activity android:name=".ForgotPassword" />
+        <activity android:name=".admin.NotificationDetails" />
         <activity
-            android:name="com.igm.garbage.utils.Connectivity"
+            android:name=".utils.Connectivity"
             android:label="@string/title_activity_connectivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.igm.garbage.admin.RegisterAdmin" />
-        <activity android:name="com.igm.garbage.Request" />
-        <activity android:name="com.igm.garbage.admin.Admin" />
-        <activity android:name="com.igm.garbage.admin.notify.Notification" />
-        <activity android:name="com.igm.garbage.Settings" />
-        <activity android:name="com.igm.garbage.About" />
-        <activity android:name="com.igm.garbage.Profile" />
-        <activity android:name="com.igm.garbage.SignUp" />
-        <activity android:name="com.igm.garbage.Subscription" />
-        <activity android:name="com.igm.garbage.Collection" />
-        <activity android:name="com.igm.garbage.Welcome">
+        <activity android:name=".admin.RegisterAdmin" />
+        <activity android:name=".Request" />
+        <activity android:name=".admin.Admin" />
+        <activity android:name=".admin.notify.Notification" />
+        <activity android:name=".Settings" />
+        <activity android:name=".About" />
+        <activity android:name=".Profile" />
+        <activity android:name=".SignUp" />
+        <activity android:name=".Subscription" />
+        <activity android:name=".Collection" />
+        <activity android:name=".Welcome">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.igm.garbage.Login" />
-        <activity android:name="com.igm.garbage.Home" />
+        <activity android:name=".Login" />
+        <activity android:name=".Home" />
 
         <uses-library
             android:name="org.apache.http.legacy"

@@ -25,7 +25,6 @@ public class Subscription extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subscription);
 
-        setupBottomNav();
 
         mSubscription = findViewById(R.id.monthlySubscription);
         wSubscription = findViewById(R.id.weeklySubscription);
@@ -57,7 +56,7 @@ public class Subscription extends AppCompatActivity {
         pSubscription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Collection.class);
+                Intent intent = new Intent(Subscription.this, Collection.class);
                 intent.putExtra("Subscription", payPerService);
                 startActivity(intent);
 //                startActivity(new Intent(getApplicationContext(), Collection.class));
@@ -66,12 +65,4 @@ public class Subscription extends AppCompatActivity {
 
     }
 
-    public void setupBottomNav(){
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
-        BottomNavigation.enableNavigation(Subscription.this, bottomNavigationView);
-
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(0);
-        menuItem.setChecked(true);
-    }
 }

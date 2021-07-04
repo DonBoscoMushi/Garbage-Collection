@@ -18,7 +18,7 @@ import com.igm.garbage.models.User;
 public class ProfileDialogFragment extends DialogFragment {
 
     private FirebaseAuth firebaseAuth;
-    private TextView profileName, profileEmail, profileEdit, profileContacts, profileAbout;
+    private TextView profileName, profileEmail, profileEdit, profileContacts, profileAbout, profileFeedback;
     private LinearLayout linearLayout7;
 
     @Nullable
@@ -35,7 +35,9 @@ public class ProfileDialogFragment extends DialogFragment {
         profileContacts = view.findViewById(R.id.profileContacts);
         profileAbout = view.findViewById(R.id.profileAbout);
         linearLayout7 = view.findViewById(R.id.linear7);
+        profileFeedback = view.findViewById(R.id.profileFeedback);
 
+        view.findViewById(R.id.linear6).setVisibility(View.GONE);
 
         String name = User.getInstance().getFullname();
         String email = User.getInstance().getEmail();
@@ -68,6 +70,11 @@ public class ProfileDialogFragment extends DialogFragment {
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), Settings.class));
             }
+        });
+
+        profileFeedback.setOnClickListener(view1 -> {
+
+            startActivity(new Intent(getActivity(), Feedback.class));
         });
 
 
