@@ -45,10 +45,6 @@ public class Attended_Notification_Fragment extends Fragment implements MyAdapte
         // Inflate the layout for this fragment
 
         recyclerView = view.findViewById(R.id.recycler_view_attended);
-
-//        list.addAll(Arrays.asList("elephant","hyena","chicken",
-//                "girrafe","penguin","blackbird","crown","dove","lion",
-//                "quora","bird","snake","milk","hawky","turkey"));
         recyclerView.setHasFixedSize(true);
 
         // use this setting to improve performance if you know that changes

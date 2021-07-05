@@ -20,9 +20,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.igm.garbage.Home;
 import com.igm.garbage.R;
 import com.igm.garbage.admin.notify.Notification;
 import com.igm.garbage.models.Subscription;
+import com.igm.garbage.utils.DatabaseHelper;
 
 import java.util.Date;
 
@@ -33,6 +35,8 @@ import java.util.Date;
      private String TAG = "Notification";
      private LottieAnimationView animationView;
      private LinearLayout greyedLinearLayout;
+
+     DatabaseHelper dbH;
 
      //Firestore
      FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -53,6 +57,10 @@ import java.util.Date;
         greyedLinearLayout = findViewById(R.id.greyedBg);
         animationView = findViewById(R.id.animatedDialog);
         animationView.setVisibility(View.GONE);
+
+         dbH = new DatabaseHelper(NotificationDetails.this);
+         dbH.checkRole();
+
 
         Intent intent = getIntent();
 

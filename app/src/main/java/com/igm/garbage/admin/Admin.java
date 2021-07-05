@@ -21,10 +21,13 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.igm.garbage.Feedback;
+import com.igm.garbage.Home;
 import com.igm.garbage.ProfileDialogFragment;
 import com.igm.garbage.R;
 import com.igm.garbage.admin.notify.Notification;
 import com.igm.garbage.models.Request;
+import com.igm.garbage.utils.DatabaseHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +43,7 @@ public class Admin extends AppCompatActivity {
     private static final String  CHANNEL_DESCRIPTION = "Clean City";
 
     ImageView profileImage;
+    DatabaseHelper db1;
 
 
     @Override
@@ -60,7 +64,8 @@ public class Admin extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-
+        db1 = new DatabaseHelper(Admin.this);
+        db1.checkRole();
 
         final DocumentReference docRef = FirebaseFirestore.getInstance()
                 .collection("requests").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -93,6 +98,11 @@ public class Admin extends AppCompatActivity {
                 ProfileDialogFragment profileDialogFragment = new ProfileDialogFragment();
                 profileDialogFragment.show(getSupportFragmentManager(), "Green");
             }
+        });
+
+        findViewById(R.id.viewFeed).setOnClickListener(view -> {
+
+            startActivity(new Intent(getApplicationContext(), FeedBackView.class));
         });
 
         findViewById(R.id.regAdmin).setOnClickListener(new View.OnClickListener() {
