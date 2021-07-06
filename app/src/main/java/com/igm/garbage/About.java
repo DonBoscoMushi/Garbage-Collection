@@ -22,16 +22,7 @@ public class About extends AppCompatActivity {
 
     }
 
-    //This is no longer needed
-//    public void setupBottomNav(){
-//        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
-//        BottomNavigation.enableNavigation(About.this, bottomNavigationView);
-//
-//        Menu menu = bottomNavigationView.getMenu();
-//        MenuItem menuItem = menu.getItem(3);
-//        menuItem.setChecked(true);
-//
-//    }
+
 
     //check network
     public void Network(){

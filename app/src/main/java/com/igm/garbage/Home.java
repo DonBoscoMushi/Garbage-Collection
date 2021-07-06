@@ -64,7 +64,7 @@ public class Home extends AppCompatActivity {
         collectionR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Sorry! We have no any route for now.", Snackbar.LENGTH_LONG).show();
+                startActivity(new Intent(Home.this, CollectionRoutine.class));
             }
         });
     }

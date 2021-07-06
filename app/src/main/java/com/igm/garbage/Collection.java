@@ -47,7 +47,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.igm.garbage.models.Request;
 import com.igm.garbage.models.Subscription;
+import com.igm.garbage.models.User;
 import com.igm.garbage.utils.CheckNetworkGps;
+import com.igm.garbage.utils.DatabaseHelper;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -68,7 +70,7 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
     private static final int ERROR_DIALOG_REQUEST = 9001;
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
-    private static final String TAG = "Collection";
+    private static final String TAG = "Collection Data";
 
     String subscription;
     Date currentTime;
@@ -125,6 +127,9 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                         name = document.getString("fullname");
                         phone = document.getString("phone_no");
+
+                        Log.d(TAG, "onComplete Received data One: " + name + phone);
+
                     } else {
                         Log.d(TAG, "No such document");
                     }
@@ -132,7 +137,17 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
                     Log.d(TAG, "get failed with ", task.getException());
                 }
             }
+
+
         });
+
+        DatabaseHelper dbh = new DatabaseHelper(this);
+        dbh.checkRole();
+
+        name = User.getInstance().getFullname();
+        phone = User.getInstance().getPhone_no();
+
+        Log.d(TAG, "onComplete Received data Two: " + name + phone);
 
         Subscription subscription = new Subscription(
                 UserId,
@@ -146,24 +161,17 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
                 phone
         );
 
-//        DocumentReference mDocumentReference = db.collection("requests");
         CollectionReference toSubscription = db.collection("subscription");
 
         toSubscription.add(subscription)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        addToRequests(documentReference.getId());
-                        Log.d(TAG, "Check document Id: " + documentReference.getId());
-                        Toast.makeText(Collection.this, "Your request already sent.", Toast.LENGTH_SHORT).show();
-                    }
+                .addOnSuccessListener(documentReference -> {
+                    addToRequests(documentReference.getId());
+                    Log.d(TAG, "Check document Id: " + documentReference.getId());
+                    Toast.makeText(Collection.this, "Your request already sent.", Toast.LENGTH_SHORT).show();
                 })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(Collection.this, "Request failed", Toast.LENGTH_SHORT).show();
-                        Log.d(TAG, "onFailure: " + e.getMessage());
-                    }
+                .addOnFailureListener(e -> {
+                    Toast.makeText(Collection.this, "Request failed", Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "onFailure: " + e.getMessage());
                 });
 
 
@@ -466,4 +474,8 @@ public class Collection extends AppCompatActivity implements OnMapReadyCallback 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

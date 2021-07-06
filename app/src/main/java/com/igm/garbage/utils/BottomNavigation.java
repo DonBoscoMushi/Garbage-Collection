@@ -11,7 +11,7 @@ import com.igm.garbage.Home;
 import com.igm.garbage.Profile;
 import com.igm.garbage.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.igm.garbage.Settings;
+import com.igm.garbage.CollectionRoutine;
 
 public class BottomNavigation {
 
@@ -39,7 +39,7 @@ public class BottomNavigation {
                         break;
 //
                     case R.id.settings:
-                        Intent intent4 = new Intent(context, Settings.class);
+                        Intent intent4 = new Intent(context, CollectionRoutine.class);
                         context.startActivity(intent4);
                         break;
                 }

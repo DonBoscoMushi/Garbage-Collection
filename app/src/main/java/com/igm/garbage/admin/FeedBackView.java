@@ -53,7 +53,10 @@ public class FeedBackView extends AppCompatActivity implements FeedbackAdapter.O
                             Log.d("Requests", "onSuccess: " + document.getData());
 
                             Feedback fd = new Feedback(
-                                    document.getString("message"));
+                                    document.getString("message"),
+                                    document.getString("email")
+                            );
+
                             list.add(fd);
                         }
                         mAdapter.notifyDataSetChanged();

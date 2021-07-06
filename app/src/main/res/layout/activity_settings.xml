@@ -4,19 +4,270 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Settings">
+    tools:context=".CollectionRoutine">
 
     <include
         android:id="@+id/layout_toolbar"
         layout="@layout/app_toolbar"/>
 
-    <Button
-        android:id="@+id/btnLogout"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/monthlySubTxt"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_centerHorizontal="true"
-        android:textAllCaps="false"
-        android:text="Logout" />
+        android:layout_below="@id/layout_toolbar"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:fontFamily="@font/asap"
+        android:textSize="20sp"
+        android:lines="1"
+        android:padding="2dp"
+        android:text="Monthly / Weekly "
+        android:textColor="@color/black"
+        android:textStyle="bold"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/notificationCardView"
+        android:layout_below="@id/monthlySubTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp">
+
+        <RelativeLayout
+            android:id="@+id/monthlySub"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="3dp"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:autoSizeTextType="uniform"
+                android:fontFamily="@font/asap"
+                android:padding="2dp"
+                android:text="Garbage collection will be done in these days:"
+                android:textColor="@color/black" />
+
+            <LinearLayout
+                android:id="@+id/ll1"
+                android:layout_below="@id/location"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="5">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="3dp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/asap"
+                        android:lines="1"
+                        android:padding="2dp"
+                        android:text="Tuesday"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="3"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="3dp"
+                        android:fontFamily="@font/asap"
+                        android:lines="1"
+                        android:padding="2dp"
+                        android:text="09:00 - 18:00"
+                        android:textColor="@color/black" />
+
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/view4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@color/lightgray" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="5">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="3dp"
+                        android:fontFamily="@font/asap"
+                        android:lines="1"
+                        android:textStyle="bold"
+                        android:padding="2dp"
+                        android:text="Thursday"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="3"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="3dp"
+                        android:fontFamily="@font/asap"
+                        android:lines="1"
+                        android:padding="2dp"
+                        android:text="09:00 - 18:00"
+                        android:textColor="@color/black" />
+
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="10dp"
+                android:background="@color/lightgray" />
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/payperSTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/notificationCardView"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:fontFamily="@font/asap"
+        android:textSize="20sp"
+        android:lines="1"
+        android:padding="2dp"
+        android:text="Pey per Service"
+        android:textColor="@color/black"
+        android:textStyle="bold"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_below="@id/payperSTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp">
+
+        <RelativeLayout
+            android:id="@+id/payPer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/txt2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="3dp"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:autoSizeTextType="uniform"
+                android:fontFamily="@font/asap"
+                android:padding="2dp"
+                android:text="Garbage collection will be done in these days:"
+                android:textColor="@color/black" />
+
+            <LinearLayout
+                android:id="@+id/ll2"
+                android:layout_below="@id/txt2"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="5">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="3dp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/asap"
+                        android:lines="1"
+                        android:padding="2dp"
+                        android:text="EveryDay"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="3"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="3dp"
+                        android:fontFamily="@font/asap"
+                        android:lines="1"
+                        android:padding="2dp"
+                        android:text="Anytime From 09:00 - 18:00"
+                        android:textColor="@color/black" />
+
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/view5"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@color/lightgray" />
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

@@ -19,7 +19,7 @@ public class ProfileDialogFragment extends DialogFragment {
 
     private FirebaseAuth firebaseAuth;
     private TextView profileName, profileEmail, profileEdit, profileContacts, profileAbout, profileFeedback;
-    private LinearLayout linearLayout7;
+    private LinearLayout linearLayout7, liner3;
 
     @Nullable
     @Override
@@ -31,13 +31,14 @@ public class ProfileDialogFragment extends DialogFragment {
 
         profileName = view.findViewById(R.id.profileName);
         profileEmail = view.findViewById(R.id.profileEmail);
-        profileEdit = view.findViewById(R.id.profileEdit);
+
         profileContacts = view.findViewById(R.id.profileContacts);
         profileAbout = view.findViewById(R.id.profileAbout);
         linearLayout7 = view.findViewById(R.id.linear7);
         profileFeedback = view.findViewById(R.id.profileFeedback);
+        liner3 = view.findViewById(R.id.linear3);
 
-        view.findViewById(R.id.linear6).setVisibility(View.GONE);
+        liner3.setVisibility(View.GONE);
 
         String name = User.getInstance().getFullname();
         String email = User.getInstance().getEmail();
@@ -49,14 +50,9 @@ public class ProfileDialogFragment extends DialogFragment {
 
         if(User.getInstance().getRole().equals("admin")){
             linearLayout7.setVisibility(View.GONE);
+//            profileEdit.setVisibility(View.GONE);
         }
 
-        profileEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getActivity(), Profile.class));
-            }
-        });
 
         profileContacts.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +64,7 @@ public class ProfileDialogFragment extends DialogFragment {
         profileAbout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), Settings.class));
+                startActivity(new Intent(getActivity(), CollectionRoutine.class));
             }
         });
 

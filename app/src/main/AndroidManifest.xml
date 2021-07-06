@@ -19,7 +19,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".admin.FeedBackView"></activity>
+        <activity android:name=".admin.FeedBackView"/>
         <activity android:name=".Feedback" />
         <activity android:name=".ForgotPassword" />
         <activity android:name=".admin.NotificationDetails" />
@@ -31,7 +31,7 @@
         <activity android:name=".Request" />
         <activity android:name=".admin.Admin" />
         <activity android:name=".admin.notify.Notification" />
-        <activity android:name=".Settings" />
+        <activity android:name=".CollectionRoutine" />
         <activity android:name=".About" />
         <activity android:name=".Profile" />
         <activity android:name=".SignUp" />

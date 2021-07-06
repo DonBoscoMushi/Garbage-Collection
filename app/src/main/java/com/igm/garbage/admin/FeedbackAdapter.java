@@ -20,7 +20,6 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.MyView
 
     private FeedbackAdapter.OnNotificationListener mOnNotificationListener;
 
-
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
@@ -28,11 +27,12 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.MyView
 
         FeedbackAdapter.OnNotificationListener onNotificationListener;
 
-        public TextView mFeedback;
+        public TextView mFeedback, mName;
 
         public MyViewHolder(View v, FeedbackAdapter.OnNotificationListener onNotificationListener) {
             super(v);
             mFeedback = (TextView) v.findViewById(R.id.message);
+            mName = v.findViewById(R.id.name);
 
             this.onNotificationListener = onNotificationListener;
 
@@ -69,6 +69,7 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.MyView
         Feedback fb = list.get(position);
 
         holder.mFeedback.setText(fb.getMessage());
+        holder.mName.setText(fb.getEmail());
 
     }
 

@@ -15,21 +15,59 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/message"
+            android:id="@+id/name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="2dp"
             android:fontFamily="@font/asap"
             android:lines="1"
-            android:textSize="17sp"
             android:padding="2dp"
-            android:text="I lovwe colleckjnwenfan jjlernknekwe jkwenvkj w andvlknadwefvk wkefv wvkwnekewrv wevoweivwje"
+            android:text="I e You Don"
             android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/lightgray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name" />
 
 
 
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="186dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="3dp"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="@font/asap"
+            android:padding="2dp"
+            android:text="kjbkdav akjd"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view1" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/lightgray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/message" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

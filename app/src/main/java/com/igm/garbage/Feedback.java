@@ -10,7 +10,9 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.igm.garbage.models.User;
 import com.igm.garbage.utils.BasicJobs;
+import com.igm.garbage.utils.DatabaseHelper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +23,7 @@ public class Feedback extends AppCompatActivity {
     Button sendBtn;
     EditText feedbackText;
 
+    DatabaseHelper dbH;
     FirebaseFirestore mFirestore;
 
     @Override
@@ -31,9 +34,11 @@ public class Feedback extends AppCompatActivity {
         feedbackText = findViewById(R.id.edtFeedback);
         sendBtn = findViewById(R.id.btnSend);
 
-
+        dbH = new DatabaseHelper(this);
+        dbH.checkRole();
 
         String Uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+        String email = User.getInstance().getEmail();
 
         mFirestore = FirebaseFirestore.getInstance();
 
@@ -50,9 +55,10 @@ public class Feedback extends AppCompatActivity {
 
             Map<String, Object> feedback = new HashMap<>();
             feedback.put("message", feedbackText.getText().toString());
+            feedback.put("email", email);
 
             mFirestore.collection("feedback")
-                    .document(Uid)
+                    .document()
                     .set(feedback)
                     .addOnSuccessListener(unused -> {
                         feedbackText.setText("");
